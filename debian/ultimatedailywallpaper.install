@@ -1,0 +1,3 @@
+bin/UltimateDailyWallpaper usr/bin
+UltimateDailyWallpaper.desktop usr/share/applications
+src/ultimatedesktopwallpaper_icon.png usr/share/pixmaps

@@ -1,0 +1,18 @@
+Source: ultimatedailywallpaper
+Section: misc
+Priority: optional
+Maintainer: Patrice Coni <patrice.coni-dev@yandex.com>
+Build-Depends: debhelper-compat (= 13), qtbase5-dev, libkf5config-dev, libkf5filemetadata-dev, qt5-qmake, libqt5opengl5-dev, tzdata, locales, libkf5coreaddons-dev, qt5-qmake-bin, baloo-kf5-dev, qtchooser, imgp, wget, sensible-utils
+Standards-Version: 4.5.1
+Homepage: https://github.com/pagaco-swita/UltimateDailyWallpaper
+Rules-Requires-Root: no
+
+Package: ultimatedailywallpaper
+Architecture: any
+Depends: libqt5gui5, libqt5widgets5, libqt5core5a, libqt5network5, libqt5networkauth5, libqt5xml5, libqt5concurrent5, libqt5sql5, libqt5sql5-psql, sensible-utils, wget, imgp, ${shlibs:Depends}, ${misc:Depends}
+Description: Daily image as wallpaper of a selected provider.
+ UltimateDailyWallpaper is a utility to set the Wikimedia Commons 
+ daily picture as wallpaper. It saves images in a high quality. 
+ Further information about each picture can be obtained from the 
+ Internet with a single click. It integrates with most X11 desktop 
+ environments to provide automatically changing wallpaper.
