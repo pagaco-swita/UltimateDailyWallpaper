@@ -1,3 +1,5 @@
+![Icon](https://github.com/pagaco-swita/ultimatedailywallpaper/blob/main/src/ultimatedesktopwallpaper_icon.png)
+
 # UltimateDailyWallpaper (Linux)
 UltimateDailyWallpaper is a utility to set the Wikimedia Commons daily picture as wallpaper. It saves images in a high quality. Further information about each picture can be obtained from the internet with a single click. It integrates with most X11 desktop environments to provide automatically changing wallpaper.
 <br>
