@@ -61,6 +61,6 @@ void About::on_pushButton_3_clicked()
 
 void About::openURL()
 {
-    QString _DefinitiveURL="https://github.com/pagaco-swita/UltimateDailyWallpaper";
+    QString _DefinitiveURL="https://github.com/pagaco-swita/ultimatedailywallpaper";
     QDesktopServices::openUrl(_DefinitiveURL);
 }

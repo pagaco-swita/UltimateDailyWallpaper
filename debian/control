@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Patrice Coni <patrice.coni-dev@yandex.com>
 Build-Depends: debhelper-compat (= 13), qtbase5-dev, libkf5config-dev, libkf5filemetadata-dev, qt5-qmake, libqt5opengl5-dev, tzdata, locales, libkf5coreaddons-dev, qt5-qmake-bin, baloo-kf5-dev, qtchooser, imgp, wget, sensible-utils
 Standards-Version: 4.5.1
-Homepage: https://github.com/pagaco-swita/UltimateDailyWallpaper
+Homepage: https://github.com/pagaco-swita/ultimatedailywallpaper
 Rules-Requires-Root: no
 
 Package: ultimatedailywallpaper

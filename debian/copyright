@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: ultimatedailywallpaper
 Upstream-Contact: Patrice Coni <patrice.coni-dev@yandex.com>
-Source: https://github.com/pagaco-swita/UltimateDailyWallpaper
+Source: https://github.com/pagaco-swita/ultimatedailywallpaper
 
 Files: *
 Copyright: 2022 Patrice Coni <patrice.coni-dev@yandex.com>
