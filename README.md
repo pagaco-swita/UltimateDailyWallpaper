@@ -26,8 +26,8 @@ $ make -f Makefile
 ``` 
 
 #### Screenshot: <br />
-![Screenshot](https://github.com/pagaco-swita/ultimatedailywallpaper/blob/main/screenshots/example_desktop.png)
+![Screenshot](https://github.com/pagaco-swita/ultimatedailywallpaper/blob/main/screenshots/example_desktop_new.png)
+
+![Screenshot](https://github.com/pagaco-swita/ultimatedailywallpaper/blob/main/screenshots/menu_app.png)
 
 ![Screenshot](https://github.com/pagaco-swita/ultimatedailywallpaper/blob/main/screenshots/download_picture.png)
-
-![Screenshot](https://github.com/pagaco-swita/ultimatedailywallpaper/blob/main/screenshots/main_menu.png)
