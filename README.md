@@ -11,7 +11,7 @@ UltimateDailyWallpaper is a utility to set the Wikimedia Commons daily picture a
 * Qt 5.14 (or higher) - Download Qt here: https://www.qt.io/download
 * imgp - https://github.com/jarun/imgp
 
-#### Get the latest build of SimplePictureTool for Linux:<br />
+#### Get the latest build:<br />
 <a href="hhttps://github.com/pagaco-swita/ultimatedailywallpaper/releases">https://github.com/pagaco-swita/ultimatedailywallpaper/releases</a>
 
 #### How to build the Application:
