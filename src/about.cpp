@@ -28,7 +28,7 @@ About::About(QWidget *parent) :
     ui->setupUi(this);
     ui->label_2->setText("Application name: "+QApplication::applicationName());
 
-    QString version="0.0.1";
+    QString version="0.0.2";
     ui->label_3->clear();
     ui->label_3->setText("Version: "+version);
 }

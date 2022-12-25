@@ -32,6 +32,9 @@
 #include <QThread>
 #include <QDate>
 #include <QDesktopWidget>
+#include <QString>
+#include <string>
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -170,6 +173,11 @@ MainWindow::MainWindow(QWidget *parent)
     mSystemTrayIcon = new QSystemTrayIcon(this);
 
     request_dl_wallpaper();
+    get_last_record(_selected_provider);
+
+    create_MenuHead(_db_rec_description, _db_rec_title, _db_rec_thumb_filename);
+    create_Actions();
+    create_Menu();
 
     if(_autochange==2)
     {
@@ -181,11 +189,6 @@ MainWindow::MainWindow(QWidget *parent)
     {
         no_autochange();
     }
-
-    get_last_record(_selected_provider);
-    create_MenuHead(_db_rec_description, _db_rec_title, _db_rec_thumb_filename);
-    create_Actions();
-    create_Menu();
 
     if(check_internet_connection()==false)
     {
@@ -590,14 +593,14 @@ void MainWindow::get_last_record(int provider)
     udw_query.exec();
     while(udw_query.next()){
         if(udw_query.last()) {
-            _db_rec_filename = udw_query.value(0).toString();
+            _db_rec_filename=udw_query.value(0).toString();
         }
     }
     udw_query.prepare("SELECT thumb_filename FROM udw_history WHERE provider=\""+QString::number(provider)+"\"");
     udw_query.exec();
     while(udw_query.next()){
         if(udw_query.last()) {
-            _db_rec_thumb_filename = udw_query.value(0).toString();
+            _db_rec_thumb_filename=udw_query.value(0).toString();
         }
     }
     udw_query.prepare("SELECT size_width FROM udw_history WHERE provider=\""+QString::number(provider)+"\"");
@@ -622,7 +625,7 @@ void MainWindow::get_last_record(int provider)
         }
     }
     udw_query.finish();
-    udw_query.clear();   
+    udw_query.clear();
 }
 
 void MainWindow::runscript(QString content)

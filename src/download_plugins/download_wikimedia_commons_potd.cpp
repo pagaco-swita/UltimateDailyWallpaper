@@ -119,6 +119,16 @@ void download_wikimedia_commons_potd::get_wikimedia_commons_potd(bool downloadth
 
                 if(!(download_picture(picture_download_url, _picturedir, picture_filename)==255) && !(create_thumbfile(_picturedir, picture_filename)==255))
                 {
+                    if(thumbfilename.contains("\x5C"))
+                    {
+                        thumbfilename.remove("\x5C");
+                    }
+
+                    if(thumbfilename.contains("\'\\'\'"))
+                    {
+                        thumbfilename.replace("\'\\'\'", "\'");
+                    }
+
                     emit download_successful(_wpc_potd_description, "", "1", "Wikimedia Commons: Picture of the day",
                                              picture_filename, _description_url,
                                              thumbfilename, _picture_height, _picture_width, _pageid,
@@ -348,17 +358,22 @@ int download_wikimedia_commons_potd::create_thumbfile(QString picturedir, QStrin
     QString thumbfiledir=QDir::homePath()+"/.UltimateDailyWallpaper/thumbnails";
     QString scriptfile=QDir::homePath()+"/.UltimateDailyWallpaper/temp_script.sh";
 
+    if(filename.contains("\""))
+    {
+        filename.replace("\"", "\x5C\x22");
+    }
+
+    if(filename.contains("\'"))
+    {
+        filename.replace("\'", "\'\\'\'");
+    }
+
     thumbfilename="thumb_"+filename;
 
     QDir _thumbfile_dir(thumbfiledir);
     if(!_thumbfile_dir.exists())
     {
         _thumbfile_dir.mkpath(thumbfiledir);
-    }
-
-    if(filename.contains("\'"))
-    {
-        filename.replace("\'", "\'\\'\'");
     }
 
     QFile ct_script(scriptfile);

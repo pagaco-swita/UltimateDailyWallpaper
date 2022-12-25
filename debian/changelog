@@ -1,3 +1,9 @@
+ultimatedailywallpaper (0.0.2-1) UNRELEASED; urgency=medium
+
+  * fixed: error while reading filenames that contains quotation marks.
+
+ -- Patrice Coni <patrice.coni-dev@yandex.com>  Sun, 25 Dec 2022 13:03:17 +0100
+
 ultimatedailywallpaper (0.0.1-1) unstable; urgency=medium
 
   * Initial release

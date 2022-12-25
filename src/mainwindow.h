@@ -56,6 +56,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+
 signals:
     void _setWallpaper(QString _wallpaperfile, int _set_Parameter);
 
