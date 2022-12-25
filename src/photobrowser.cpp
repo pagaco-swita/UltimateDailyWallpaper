@@ -331,6 +331,11 @@ void PhotoBrowser::_get_values()
             _wallpaperfile = udw_query.value(0).toString();
         }
         _get_specific_values=false;
+
+        if(_thumb_filename.contains("\x27\x27"))
+        {
+            _thumb_filename.replace("\x27\x27", "\x27");
+        }
     }
     udw_query.finish();
     udw_query.clear();
@@ -624,6 +629,7 @@ bool PhotoBrowser::select_single_value(QString desired_column, QString db_filepa
     if(udw_query.exec() && udw_query.next())
     {
         _output_value = udw_query.value(0).toString();
+
     }
     udw_query.finish();
     udw_query.clear();

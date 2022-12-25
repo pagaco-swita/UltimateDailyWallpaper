@@ -106,7 +106,7 @@ void download_wikimedia_commons_potd::get_wikimedia_commons_potd(bool downloadth
             emit download_successful(_wpc_potd_description, "", "1", "Wikimedia Commons: Picture of the day",
                                      picture_filename, _description_url,
                                      picture_filename, _picture_height, _picture_width, _pageid,
-                                     true, _year+_month+_day);            
+                                     true, _year+_month+_day);
         }
     }
     else
@@ -302,7 +302,7 @@ int download_wikimedia_commons_potd::check_exists()
 }
 
 bool download_wikimedia_commons_potd::request_download_xml(QString _targeturl)
-{
+{    
     QEventLoop loop;
     QObject::connect(&dl_manager,&QNetworkAccessManager::finished,&loop,&QEventLoop::quit);
     QUrl targeturl=_targeturl;
@@ -366,11 +366,6 @@ int download_wikimedia_commons_potd::create_thumbfile(QString picturedir, QStrin
     if(filename.contains("\""))
     {
         filename.replace("\"", "\x5C\x22");
-    }
-
-    if(filename.contains("\'"))
-    {
-        filename.replace("\'", "\'\\'\'");
     }
 
     thumbfilename="thumb_"+filename;
