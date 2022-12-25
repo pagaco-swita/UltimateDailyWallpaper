@@ -91,13 +91,15 @@ void download_wikimedia_commons_potd::get_wikimedia_commons_potd(bool downloadth
         _reply.clear();
         element.clear();
         xmlfile.clear();
-    }
+    }  
 
     if(downloadthumb==true)
     {
         _databaseFilePath=QDir::homePath()+"/.UltimateDailyWallpaper/temp/temp_udw_database.sqlite";
 
         get_values();
+
+        _wpc_potd_description=_wpc_potd_description.trimmed();
 
         if(!(download_picture(_thumburl, _picturedir, picture_filename)==255))
         {
@@ -113,9 +115,11 @@ void download_wikimedia_commons_potd::get_wikimedia_commons_potd(bool downloadth
         {            
             if(check_exists()==1)
             {
+                _databaseFilePath=QDir::homePath()+"/.UltimateDailyWallpaper/udw_database.sqlite";
+
                 get_values();
 
-                _databaseFilePath=QDir::homePath()+"/.UltimateDailyWallpaper/udw_database.sqlite";
+                _wpc_potd_description=_wpc_potd_description.trimmed();
 
                 if(!(download_picture(picture_download_url, _picturedir, picture_filename)==255) && !(create_thumbfile(_picturedir, picture_filename)==255))
                 {
@@ -128,8 +132,6 @@ void download_wikimedia_commons_potd::get_wikimedia_commons_potd(bool downloadth
                     {
                         thumbfilename.replace("\'\\'\'", "\'");
                     }
-
-                    _wpc_potd_description=_wpc_potd_description.trimmed();
 
                     emit download_successful(_wpc_potd_description, "", "1", "Wikimedia Commons: Picture of the day",
                                              picture_filename, _description_url,
