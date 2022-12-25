@@ -295,7 +295,10 @@ void PhotoBrowser::_get_values()
 
         _thumb_filename = index.data(Qt::DisplayRole).toString();
 
-        qDebug().noquote() << _thumb_filename;
+        if(_thumb_filename.contains("\x27"))
+        {
+            _thumb_filename.replace("\x27", "\x27\x27");
+        }
 
         udw_query.prepare("SELECT description FROM udw_history WHERE thumb_filename = \x27"+_thumb_filename+"\x27");
         if(udw_query.exec() && udw_query.next())
@@ -610,6 +613,11 @@ bool PhotoBrowser::select_single_value(QString desired_column, QString db_filepa
     if (!udw_temp_db.open())
     {
         return false;
+    }
+
+    if(_thumb_filename.contains("\x27"))
+    {
+        _thumb_filename.replace("\x27", "\x27\x27");
     }
 
     udw_query.prepare("SELECT "+desired_column+" FROM udw_history WHERE thumb_filename = \x27"+_thumb_filename+"\x27");
