@@ -39,9 +39,9 @@ void setWallpaper::_set_wallpaper(QString _wallpaperfile, int _Parameter)
         _wallpaperfile.replace("\'", "\'\\'\'");
     }
 
-    if(_wallpaperfile.contains("\""))
+    if(_wallpaperfile.contains("\x22"))
     {
-        _wallpaperfile.replace("\"", "\x5C\x22");
+        _wallpaperfile.replace("\x22", "\x5C\x22");
     }
 
     if(!_wallpaperfile.isEmpty())

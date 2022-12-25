@@ -293,34 +293,37 @@ void PhotoBrowser::_get_values()
     {
         QModelIndex index = ui->listView->currentIndex();
 
+
         _thumb_filename = index.data(Qt::DisplayRole).toString();
 
-        udw_query.prepare("SELECT description FROM udw_history WHERE thumb_filename = \""+_thumb_filename+"\"");
+        qDebug().noquote() << _thumb_filename;
+
+        udw_query.prepare("SELECT description FROM udw_history WHERE thumb_filename = \x27"+_thumb_filename+"\x27");
         if(udw_query.exec() && udw_query.next())
         {
             _pb_copyright_description_photo = udw_query.value(0).toString();
         }
-        udw_query.prepare("SELECT title FROM udw_history WHERE thumb_filename = \""+_thumb_filename+"\"");
+        udw_query.prepare("SELECT title FROM udw_history WHERE thumb_filename = \x27"+_thumb_filename+"\x27");
         if(udw_query.exec() && udw_query.next())
         {
             _pb_headline = udw_query.value(0).toString();
         }
-        udw_query.prepare("SELECT browser_url FROM udw_history WHERE thumb_filename = \""+_thumb_filename+"\"");
+        udw_query.prepare("SELECT browser_url FROM udw_history WHERE thumb_filename = \x27"+_thumb_filename+"\x27");
         if(udw_query.exec() && udw_query.next())
         {
             _pb_copyright_link = udw_query.value(0).toString();
         }
-        udw_query.prepare("SELECT size_width FROM udw_history WHERE thumb_filename = \""+_thumb_filename+"\"");
+        udw_query.prepare("SELECT size_width FROM udw_history WHERE thumb_filename = \x27"+_thumb_filename+"\x27");
         if(udw_query.exec() && udw_query.next())
         {
             _size_width = udw_query.value(0).toInt();
         }
-        udw_query.prepare("SELECT size_height FROM udw_history WHERE thumb_filename = \""+_thumb_filename+"\"");
+        udw_query.prepare("SELECT size_height FROM udw_history WHERE thumb_filename = \x27"+_thumb_filename+"\x27");
         if(udw_query.exec() && udw_query.next())
         {
             _size_height = udw_query.value(0).toInt();
         }
-        udw_query.prepare("SELECT filename FROM udw_history WHERE thumb_filename = \""+_thumb_filename+"\"");
+        udw_query.prepare("SELECT filename FROM udw_history WHERE thumb_filename = \x27"+_thumb_filename+"\x27");
         if(udw_query.exec() && udw_query.next())
         {
             _wallpaperfile = udw_query.value(0).toString();
@@ -610,7 +613,7 @@ bool PhotoBrowser::select_single_value(QString desired_column, QString db_filepa
         return false;
     }
 
-    udw_query.prepare("SELECT "+desired_column+" FROM udw_history WHERE thumb_filename = \""+_thumb_filename+"\"");
+    udw_query.prepare("SELECT "+desired_column+" FROM udw_history WHERE thumb_filename = \x27"+_thumb_filename+"\x27");
     if(udw_query.exec() && udw_query.next())
     {
         _output_value = udw_query.value(0).toString();
