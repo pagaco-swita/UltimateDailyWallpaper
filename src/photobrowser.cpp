@@ -293,7 +293,6 @@ void PhotoBrowser::_get_values()
     {
         QModelIndex index = ui->listView->currentIndex();
 
-
         _thumb_filename = index.data(Qt::DisplayRole).toString();
 
         qDebug().noquote() << _thumb_filename;
