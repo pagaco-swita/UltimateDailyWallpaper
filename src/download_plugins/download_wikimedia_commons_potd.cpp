@@ -129,6 +129,8 @@ void download_wikimedia_commons_potd::get_wikimedia_commons_potd(bool downloadth
                         thumbfilename.replace("\'\\'\'", "\'");
                     }
 
+                    _wpc_potd_description=_wpc_potd_description.trimmed();
+
                     emit download_successful(_wpc_potd_description, "", "1", "Wikimedia Commons: Picture of the day",
                                              picture_filename, _description_url,
                                              thumbfilename, _picture_height, _picture_width, _pageid,
@@ -215,12 +217,13 @@ void download_wikimedia_commons_potd::get_values()
                                 {
                                     QStringList parts=_wpc_potd_description_orig.split(".");
                                     _wpc_potd_description=parts.at(0);
+
                                 }
                                 else
                                 {
                                     _wpc_potd_description=_wpc_potd_description_orig;
                                 }
-
+                                _wpc_potd_description=_wpc_potd_description.simplified();
                             }
                         }
                     }
