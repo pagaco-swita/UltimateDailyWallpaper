@@ -1,12 +1,11 @@
 ![Icon](https://github.com/pagaco-swita/ultimatedailywallpaper/blob/main/src/ultimatedesktopwallpaper_icon.png)
 
-# UltimateDailyWallpaper (for linux based operating systems)
-UltimateDailyWallpaper is a utility to set the Wikimedia Commons daily picture as wallpaper. It saves images in a high quality. Further information about each picture can be obtained from the internet with a single click. It integrates with most X11 desktop environments to provide automatically changing wallpaper.
+# UltimateDailyWallpaper
+UltimateDailyWallpaper is a utility to set the Wikimedia Commons daily picture as wallpaper on linux based operating systems. It saves images in a high quality. Further information about each picture can be obtained from the internet with a single click. It integrates with most X11 desktop environments to provide automatically changing wallpaper.
 <br>
 #### Features of the application: <br />
  * Allows to download the daily picture of Wikimedia Commons (POTD)
  * Allows to download "pictures of the day" from past days of Wikimedia Commons
- * Integration of plugins, that allows the download of daily pictures from a specific provider
  * Supports the most of X11 desktop environments to provide automatically changing wallpaper
 
 #### Requierment: <br />
