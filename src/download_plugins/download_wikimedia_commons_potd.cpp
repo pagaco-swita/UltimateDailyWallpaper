@@ -238,7 +238,14 @@ void download_wikimedia_commons_potd::get_values()
 
     if(!(_author.isEmpty()) && !(_author=="1"))
     {
-        _wpc_potd_description.append(" - Picture by "+_author);
+        if(_author.size() > 230)
+        {
+            _wpc_potd_description.append(" - About the author of this picture: Visit "
+                                         "the website of Wikimedia Commons related to this picture.");
+        } else
+        {
+            _wpc_potd_description.append(" - Picture by "+_author);
+        }
     }
 
 }
