@@ -1,5 +1,5 @@
 /**
- * "UltimateDailyWallpaper" Copyright (C) 2022 Patrice Coni
+ * "UltimateDailyWallpaper" Copyright (C) 2023 Patrice Coni
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,8 @@
 #define PHOTOBROWSER_H
 
 #include "setwallpaper.h"
+#include "interfaces.h"
+#include "addrecord.h"
 
 #include <QDialog>
 #include <QModelIndex>
@@ -49,6 +51,7 @@ public:
     QString _pb_headline;
     QString _pb_copyright_link;
     QString _thumb_filename;
+    QString _pluginfile;
 
 signals:
     void UpdateItem(int, QImage);
@@ -63,6 +66,8 @@ private slots:
 private:
     Ui::PhotoBrowser *ui;
     setWallpaper _setwall;
+    addrecord add_record;
+    BasicInterface * basicinterface;
     QVBoxLayout *_layout_details;
     QLabel *_label_Details;
     QLabel *_label_headline;
@@ -88,6 +93,8 @@ private:
     QString _lang;
     QString _tempdirpath;
     QString _output_value;
+    QString _pluginsdir;
+    QString _selected_plugin;
 
     QStringList _filenamelist;
     QStringList _filenamelist_with_fullpath;
@@ -105,6 +112,7 @@ private:
     bool _get_specific_values;
     bool _first_run;
 
+    bool loadPlugin(QString _pluginfilename);
     bool create_temp_database();
     bool select_single_value(QString desired_column, QString db_filepath);
     void refresh();
@@ -121,6 +129,7 @@ private:
     void _display_details();
     void _select_first_item(const QModelIndex & index);
     void deltempdir();
+    void loadPlugin();
     void closeEvent(QCloseEvent * event);
     void reject();
 };

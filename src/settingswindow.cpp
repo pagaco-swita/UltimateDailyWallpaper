@@ -1,5 +1,5 @@
 /**
- * "UltimateDailyWallpaper" Copyright (C) 2022 Patrice Coni
+ * "UltimateDailyWallpaper" Copyright (C) 2023 Patrice Coni
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@
 #include <QCloseEvent>
 #include <QProcess>
 #include <QThread>
+#include <QTextStream>
 
 SettingsWindow::SettingsWindow(QWidget *parent) :
     QDialog(parent),

@@ -1,5 +1,5 @@
 /**
- * "UltimateDailyWallpaper" Copyright (C) 2022 Patrice Coni
+ * "UltimateDailyWallpaper" Copyright (C) 2023 Patrice Coni
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,8 +33,7 @@
 #include <QDate>
 #include <QDesktopWidget>
 #include <QString>
-#include <string>
-#include <iostream>
+#include <QPluginLoader>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -80,9 +79,10 @@ MainWindow::MainWindow(QWidget *parent)
     {
         QString _defaultcontent =
                 "[SETTINGS]\n"
+                "pluginsdir=/usr/lib/UltimateDailyWallpaper-plugins\n"
                 "picturedir="+_AppFileDir+"/picturefiles\n"
                 "autorun=2\n"
-                "store_days=17\n"
+                "store_days=15\n"
                 "\n"
                 "[SETWALLPAPER]\n"
                 "autochange=2\n"
@@ -92,7 +92,8 @@ MainWindow::MainWindow(QWidget *parent)
                 "time_minutes=0\n"
                 "\n"
                 "[PROVIDER_SETTINGS]\n"
-                "selected_provider=1\n"
+                "selected_provider=0\n"
+                "selected_plugin=0\n"
                 "lang=en";
 
         if (confFile.open(QIODevice::Append))
@@ -104,6 +105,24 @@ MainWindow::MainWindow(QWidget *parent)
 
     load_settings();
 
+    detectPlugins();
+
+    if(detected_providers.isEmpty())
+    {
+        QMessageBox::critical(this, "Error", "No plugins found.");
+        exit(0);
+    }
+
+    if (loadPlugin(_selected_plugin))
+    {        
+        qDebug().noquote()<<"done.";
+        qDebug().noquote()<<"Used plugin: "+_selected_plugin<<"/"<<basicinterface->pluginname();
+    }
+    else
+    {
+        QMessageBox::critical(this, "Error", "Error while loading plugin.");
+    }
+
     /* read variable $XDG_CONFIG_HOME.
      * If the variable is empty then set default directory $HOME/.config
      * If the variable contains more than one directory (e.g. PATH1:PATH2...)
@@ -113,11 +132,13 @@ MainWindow::MainWindow(QWidget *parent)
     QString _autorun_location;
     QStringList _detected_autorun_dirs;
 
-    if(_confDirVariable.contains(":")) {
+    if(_confDirVariable.contains(":"))
+    {
         _detected_autorun_dirs = _confDirVariable.split(":");
         _autorun_location = _detected_autorun_dirs.at(0)+"/autostart";
     } else {
-        if(_confDirVariable.contains("/")) {
+        if(_confDirVariable.contains("/"))
+        {
             _autorun_location = _confDirVariable.toUtf8()+"/autostart";
         } else {
             _autorun_location = QDir::homePath()+"/.config/autostart";
@@ -189,6 +210,7 @@ MainWindow::MainWindow(QWidget *parent)
     {
         no_autochange();
     }
+
 
     if(check_internet_connection()==false)
     {
@@ -288,6 +310,7 @@ void MainWindow::load_settings()
     QSettings settings(_confFile, QSettings::NativeFormat);
 
     settings.beginGroup("SETTINGS");
+    _pluginsdir = settings.value("pluginsdir","").toString();
     _picturedir = settings.value("picturedir","").toString();
     _autorun = settings.value("autorun","").toInt();
     _store_days = settings.value("store_days","").toInt();
@@ -301,7 +324,8 @@ void MainWindow::load_settings()
     settings.endGroup();
 
     settings.beginGroup("PROVIDER_SETTINGS");
-    _selected_provider = settings.value("selected_provider","").toInt();
+    _selected_provider = settings.value("selected_provider","").toString();
+    _selected_plugin = settings.value("selected_plugin","").toString();
     _lang = settings.value("lang","").toString();
     settings.endGroup();
 }
@@ -341,17 +365,13 @@ bool MainWindow::check_internet_connection()
 void MainWindow::request_dl_wallpaper()
 {
     if(check_internet_connection()==true)
-    {
-        switch (_selected_provider)
-        {
-        case 1:
-            _wikimedia_commons_potd.get_wikimedia_commons_potd(false, _picturedir, _lang, 0, 0, 0);
-            break;
-        }
+    {        
+        basicinterface->get_picture(false, _picturedir, _lang, 0, 0, 0);
     }
     else
     {
         timer = new QTimer(this);
+
         connect(timer, &QTimer::timeout, [this]
         {
             if(check_internet_connection()==true)
@@ -360,6 +380,7 @@ void MainWindow::request_dl_wallpaper()
                 timer->stop();
             }
         });
+
         timer->start(5000);
     }
 }
@@ -405,11 +426,40 @@ void MainWindow::create_Menu()
 
     basemenu->addAction(moreinformation);
 
-    switch(_selected_provider)
+    if(_selected_provider=="Wikimedia Commons - Picture of the day")
     {
-    case 1:
         basemenu->addAction(wmc_potd_morepictures);
-        break;
+    }
+
+    if(basicinterface->MenuInterface()==true)
+    {
+        for(int i=0;i<menuinterface->MenuTriggers().size();i++)
+        {
+            auto action = new QAction(menuinterface->MenuTriggers().at(i), this);
+            connect(action, &QAction::triggered, [=]()
+            {
+                extendedfunctioninterface->ExtendedFunction1();
+                // do something;
+            });
+
+            basemenu->addAction(action);
+        }
+    }
+
+    if(basicinterface->SubMenuInterface()==true)
+    {
+        auto menu = new QMenu;
+        for(int i=0;i<submenuinterface->SubMenuTriggers().size();i++)
+        {
+            auto action = new QAction(submenuinterface->SubMenuTriggers().at(i), this);
+            connect(action, &QAction::triggered, [=]()
+            {
+                emit(submenuinterface->SubMenuFunction(submenuinterface->SubMenuEmitStrings().at(i)));
+                // do something;
+            });
+            menu->addAction(action);
+        }
+        menu=basemenu->addMenu(submenuinterface->SubMenuTitle());
     }
 
     basemenu->addSeparator();
@@ -417,7 +467,19 @@ void MainWindow::create_Menu()
     basemenu->addSeparator();
 
     provider = basemenu->addMenu("&Provider");
-    provider->addAction(provider_wikimedia_commons_potd);
+    for(int i=0; i<detected_providers.size();i++)
+    {
+        auto action = new QAction(detected_providers.at(i), this);
+        connect(action, &QAction::triggered, [=]()
+        {
+            emit(change_provider(detected_providers.at(i), detected_plugins.at(i)));
+            load_settings();
+            loadPlugin(detected_plugins.at(i));
+            update_menu();
+        });
+
+        provider->addAction(action);
+    }
 
     basemenu->addAction(settings);
     basemenu->addAction(aboutapp);
@@ -435,17 +497,11 @@ void MainWindow::create_Actions()
     moreinformation = new QAction(tr("&About this picture and license"), this);
     connect(moreinformation, &QAction::triggered, this, &MainWindow::mnu_moreinformation);
 
-    switch (_selected_provider)
+    if(_selected_provider=="Wikimedia Commons - Picture of the day")
     {
-    case 1:
         wmc_potd_morepictures = new QAction(tr("&Download past pictures"), this);
         connect(wmc_potd_morepictures, &QAction::triggered, this, &MainWindow::wikimedia_commons_more_pictures);
-        break;
     }
-
-    provider_wikimedia_commons_potd = new QAction(tr("&Wikimedia Commons - Picture of the day"), this);
-    connect(provider_wikimedia_commons_potd, &QAction::triggered, this, &MainWindow::providermnu_wikipedia_commons_potd);
-
     loadexistingpicture = new QAction(tr("&Load existing picture"), this);
     connect(loadexistingpicture, &QAction::triggered, this, &MainWindow::basemnu_loadexistingpicture);
 
@@ -517,11 +573,6 @@ void MainWindow::basemnu_aboutapp()
     _about_win.exec();
 }
 
-void MainWindow::providermnu_wikipedia_commons_potd()
-{
-    change_provider(1);
-}
-
 void MainWindow::set_SystemTrayIcon()
 {
     mSystemTrayIcon->setIcon(QIcon(":/ultimatedesktopwallpaper_icon.png"));
@@ -539,19 +590,18 @@ void MainWindow::_display_tooltip(QString _tooltip_title, QString _tooltip_messa
     }
 }
 
-void MainWindow::change_provider(int _selected_provider)
+void MainWindow::change_provider(QString _selected_provider, QString _plugin)
 {
     QSettings _select_provider_settings(_confFile, QSettings::IniFormat);
 
     _select_provider_settings.beginGroup("PROVIDER_SETTINGS");
     _select_provider_settings.setValue("selected_provider", _selected_provider);
+    _select_provider_settings.setValue("selected_plugin", _plugin);
     _select_provider_settings.endGroup();
     _select_provider_settings.sync();
-
-    update_menu();
 }
 
-void MainWindow::get_last_record(int provider)
+void MainWindow::get_last_record(QString provider)
 {
     QSqlDatabase udw_db;
     QSqlQuery udw_query(udw_db);
@@ -568,56 +618,56 @@ void MainWindow::get_last_record(int provider)
     udw_db.setDatabaseName(_databaseFilePath);
     udw_db.open();
 
-    udw_query.prepare("SELECT description FROM udw_history WHERE provider=\""+QString::number(provider)+"\"");
+    udw_query.prepare("SELECT description FROM udw_history WHERE provider=\""+provider+"\"");
     udw_query.exec();
     while(udw_query.next()){
         if(udw_query.last()) {
             _db_rec_description = udw_query.value(0).toString();
         }
     }
-    udw_query.prepare("SELECT title FROM udw_history WHERE provider=\""+QString::number(provider)+"\"");
+    udw_query.prepare("SELECT title FROM udw_history WHERE provider=\""+provider+"\"");
     udw_query.exec();
     while(udw_query.next()){
         if(udw_query.last()) {
             _db_rec_title = udw_query.value(0).toString();
         }
     }
-    udw_query.prepare("SELECT provider FROM udw_history WHERE provider=\""+QString::number(provider)+"\"");
+    udw_query.prepare("SELECT provider FROM udw_history WHERE provider=\""+provider+"\"");
     udw_query.exec();
     while(udw_query.next()){
         if(udw_query.last()) {
             _db_rec_provider = udw_query.value(0).toString();
         }
     }
-    udw_query.prepare("SELECT filename FROM udw_history WHERE provider=\""+QString::number(provider)+"\"");
+    udw_query.prepare("SELECT filename FROM udw_history WHERE provider=\""+provider+"\"");
     udw_query.exec();
     while(udw_query.next()){
         if(udw_query.last()) {
             _db_rec_filename=udw_query.value(0).toString();
         }
     }
-    udw_query.prepare("SELECT thumb_filename FROM udw_history WHERE provider=\""+QString::number(provider)+"\"");
+    udw_query.prepare("SELECT thumb_filename FROM udw_history WHERE provider=\""+provider+"\"");
     udw_query.exec();
     while(udw_query.next()){
         if(udw_query.last()) {
             _db_rec_thumb_filename=udw_query.value(0).toString();
         }
     }
-    udw_query.prepare("SELECT size_width FROM udw_history WHERE provider=\""+QString::number(provider)+"\"");
+    udw_query.prepare("SELECT size_width FROM udw_history WHERE provider=\""+provider+"\"");
     udw_query.exec();
     while(udw_query.next()){
         if(udw_query.last()) {
             _db_rec_size_width = udw_query.value(0).toInt();
         }
     }
-    udw_query.prepare("SELECT size_height FROM udw_history WHERE provider=\""+QString::number(provider)+"\"");
+    udw_query.prepare("SELECT size_height FROM udw_history WHERE provider=\""+provider+"\"");
     udw_query.exec();
     while(udw_query.next()){
         if(udw_query.last()) {
             _db_rec_size_height = udw_query.value(0).toInt();
         }
     }
-    udw_query.prepare("SELECT browser_url FROM udw_history WHERE provider=\""+QString::number(provider)+"\"");
+    udw_query.prepare("SELECT browser_url FROM udw_history WHERE provider=\""+provider+"\"");
     udw_query.exec();
     while(udw_query.next()){
         if(udw_query.last()) {
@@ -862,6 +912,153 @@ void MainWindow::show_photobrowser(int mode)
        _db_rec_thumb_filename=_photobrowser._thumb_filename;
        _db_rec_url=_photobrowser._pb_copyright_link;
 
+
        update_menu();
     }
+}
+
+void MainWindow::_add_record(QString _description,
+                             QString _copyright,
+                             QString _provider,
+                             QString _title_headline,
+                             QString _filename,
+                             QString _browser_url,
+                             QString _thumb_filename,
+                             int _size_height,
+                             int _size_width,
+                             int pageid,
+                             bool tempdatabase,
+                             QString potd_date)
+{
+    QSqlDatabase udw_db;
+
+    QString _tempdatabaseFilePath=QDir::homePath()+"/.UltimateDailyWallpaper/temp/temp_udw_database.sqlite";
+
+    if(QSqlDatabase::contains("qt_sql_default_connection"))
+    {
+        udw_db = QSqlDatabase::database("qt_sql_default_connection");
+    }
+    else
+    {
+        udw_db = QSqlDatabase::addDatabase("QSQLITE");
+    }
+
+    if(tempdatabase==true)
+    {
+        udw_db.setDatabaseName(_tempdatabaseFilePath);
+    }
+    else
+    {
+        udw_db.setDatabaseName(_databaseFilePath);
+    }
+
+    udw_db.open();
+
+    QSqlQuery udw_query(udw_db);
+
+    if(tempdatabase==true)
+    {
+        udw_query.prepare("INSERT INTO udw_history (id, date, description, copyright, title, provider, filename, browser_url, size_width, size_height, thumb_filename, pageid, potd_date)"
+                                            "VALUES (:id, :date, :description, :copyright, :title, :provider, :filename, :browser_url, :size_width, :size_height, :thumb_filename, :pageid, :potd_date)");
+    } else
+    {
+        udw_query.prepare("INSERT INTO udw_history (id, date, description, copyright, title, provider, filename, browser_url, size_width, size_height, thumb_filename, pageid)"
+                                            "VALUES (:id, :date, :description, :copyright, :title, :provider, :filename, :browser_url, :size_width, :size_height, :thumb_filename, :pageid)");
+    }
+    udw_query.bindValue(":id", QDateTime::currentDateTime().toString("yyyyMMddHHmmsszzz"));
+    udw_query.bindValue(":date", QDate::currentDate().toString("yyyyMMdd"));
+    udw_query.bindValue(":description", _description);
+    udw_query.bindValue(":copyright", _copyright);
+    udw_query.bindValue(":title", _title_headline);
+    udw_query.bindValue(":provider", _provider);
+    udw_query.bindValue(":filename", _filename);
+    udw_query.bindValue(":browser_url", _browser_url);
+    udw_query.bindValue(":size_width", _size_width);
+    udw_query.bindValue(":size_height", _size_height);
+    udw_query.bindValue(":thumb_filename", _thumb_filename);
+    udw_query.bindValue(":pageid", pageid);
+
+    if(tempdatabase==true)
+    {
+        udw_query.bindValue(":potd_date", potd_date);
+    }
+
+    if(!udw_query.exec())
+    {
+        qDebug() << udw_query.lastError();
+    }
+
+    udw_query.finish();
+    udw_query.clear();
+    udw_db.close();
+}
+
+void MainWindow::detectPlugins()
+{
+    QDir pluginsDir(_pluginsdir);
+
+    const QStringList entries = pluginsDir.entryList(QDir::Files);
+    for (const QString &fileName : entries) {
+        QPluginLoader pluginLoader(pluginsDir.absoluteFilePath(fileName));
+        QObject *plugin = pluginLoader.instance();
+        if (plugin) {
+            BasicInterface * bi;
+            bi = qobject_cast<BasicInterface *>(plugin);
+            if (bi)
+            {
+                detected_providers.append(bi->provider());
+                detected_plugins.append(fileName);
+            }
+        }
+        else
+        {
+            qDebug()<<pluginLoader.errorString();
+        }
+    }
+}
+
+bool MainWindow::loadPlugin(QString _pluginfilename)
+{
+    QDir pluginsDir(_pluginsdir);
+
+    QPluginLoader pluginLoader;
+
+    if(_pluginfilename=="0")
+    {
+        _pluginfilename.clear();
+        _pluginfilename.append(detected_plugins.at(0));
+        _selected_plugin.clear();
+        _selected_plugin.append(detected_plugins.at(0));
+        _selected_provider.clear();
+        _selected_provider.append(detected_providers.at(0));
+        change_provider(detected_providers.at(0), detected_plugins.at(0));
+    }
+
+    pluginLoader.setFileName(_pluginsdir+"/"+_pluginfilename);
+
+    qDebug().noquote()<<"Loading plugin...";
+
+    QObject *plugin = pluginLoader.instance();
+    if (plugin)
+    {
+        basicinterface = qobject_cast<BasicInterface *>(plugin);
+
+        if (basicinterface)
+        {
+            connect(plugin, SIGNAL(download_successful(QString, QString, QString,
+                                                      QString, QString,
+                                                      QString, QString,
+                                                      int, int, int,
+                                                      bool, QString)),
+                    this, SLOT(_add_record(QString, QString, QString,
+                                     QString, QString,
+                                     QString, QString,
+                                     int, int, int,
+                                     bool, QString)));
+
+            return true;
+        }
+        pluginLoader.unload();
+    }
+    return false;
 }

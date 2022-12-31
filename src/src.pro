@@ -1,5 +1,5 @@
 #---------------------------------------------------
-# "UltimateDailyWallpaper" Copyright (C) 2022 Patrice Coni
+# "UltimateDailyWallpaper" Copyright (C) 2023 Patrice Coni
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +15,9 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #---------------------------------------------------
 
+VERSION   = 1.0.0
+DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+
 QT       += core gui
 QT       += network
 QT       += xml
@@ -25,13 +28,13 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
 
-TARGET = UltimateDailyWallpaper
-TEMPLATE = app
-CONFIG += warn_on
-DESTDIR = ../bin
-MOC_DIR = ../build/moc
-RCC_DIR = ../build/rcc
-UI_DIR = ../build/ui
+TARGET          = UltimateDailyWallpaper
+TEMPLATE        = app
+CONFIG          += warn_on
+DESTDIR         = ../bin
+MOC_DIR         = ../build/moc
+RCC_DIR         = ../build/rcc
+UI_DIR          = ../build/ui
 unix:OBJECTS_DIR = ../build/o/unix
 
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -41,7 +44,6 @@ unix:OBJECTS_DIR = ../build/o/unix
 SOURCES += \
     about.cpp \
     addrecord.cpp \
-    download_plugins/download_wikimedia_commons_potd.cpp \
     main.cpp \
     mainwindow.cpp \
     photobrowser.cpp \
@@ -52,7 +54,7 @@ HEADERS += \
     about.h \
     addrecord.h \
     connection.h \
-    download_plugins/download_wikimedia_commons_potd.h \
+    interfaces.h \
     itemdelegate.h \
     mainwindow.h \
     photobrowser.h \

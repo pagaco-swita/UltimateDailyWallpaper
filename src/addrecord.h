@@ -1,5 +1,5 @@
 /**
- * "UltimateDailyWallpaper" Copyright (C) 2022 Patrice Coni
+ * "UltimateDailyWallpaper" Copyright (C) 2023 Patrice Coni
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,11 +31,18 @@ public:
     addrecord();
 
 public slots:
-    void _add_record(QString _description, QString _copyright, QString _provider,
-                     QString _title_headline, QString _filename,
-                     QString _browser_url, QString _thumb_filename,
-                     int _size_height, int _size_width, int pageid,
-                     bool tempdatabase, QString potd_date);
+    void _add_record(QString _description,
+                     QString _copyright,
+                     QString _provider,
+                     QString _title_headline,
+                     QString _filename,
+                     QString _browser_url,
+                     QString _thumb_filename,
+                     int _size_height,
+                     int _size_width,
+                     int pageid,
+                     bool tempdatabase,
+                     QString potd_date);
 
 private:
     QString _databaseFilePath;

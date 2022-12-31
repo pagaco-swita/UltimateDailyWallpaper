@@ -1,4 +1,10 @@
-ultimatedailywallpaper (0.0.2-1) UNRELEASED; urgency=medium
+ultimatedailywallpaper (1.0.0-1) UNRELEASED; urgency=medium
+
+  * Allows the integration and use of plugins to download of a daily picture from a specific provider.
+
+ -- Patrice Coni <patrice.coni-dev@yandex.com>  Sun, 01 Jan 2023 00:13:29 +0100
+
+ultimatedailywallpaper (0.0.2-1) unstable; urgency=medium
 
   * fixed: error while reading filenames that contains quotation marks.
 

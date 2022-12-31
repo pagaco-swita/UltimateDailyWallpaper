@@ -1,5 +1,5 @@
 /**
- * "UltimateDailyWallpaper" Copyright (C) 2022 Patrice Coni
+ * "UltimateDailyWallpaper" Copyright (C) 2023 Patrice Coni
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,6 @@
 #include "photobrowser.h"
 #include "ui_photobrowser.h"
 #include "itemdelegate.h"
-#include "download_plugins/download_wikimedia_commons_potd.h"
 
 #include <QSize>
 #include <QFile>
@@ -48,6 +47,8 @@ PhotoBrowser::PhotoBrowser(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    _read_settings();
+
     _scaled_picture_width = 258;
     _scaled_picture_height = 145;
 
@@ -64,8 +65,6 @@ PhotoBrowser::PhotoBrowser(QWidget *parent) :
     QObject::connect(this, &PhotoBrowser::go_setWallpaper, [=](QString _wallpaperfile){
         _setwall._set_wallpaper(_wallpaperfile, _Parameter);
     });
-
-    _read_settings();
 
     ui->widget_2->setVisible(false);
     ui->widget_3->setVisible(false);
@@ -133,6 +132,13 @@ void PhotoBrowser::init(int mode)
     case 1:
         _thumbfiledir = QDir::homePath()+"/.UltimateDailyWallpaper/temp/thumbnails";
         _databaseFilePath=QDir::homePath()+"/.UltimateDailyWallpaper/temp/temp_udw_database.sqlite";
+
+        if(!loadPlugin(_pluginsdir+"/"+_selected_plugin))
+        {
+            QMessageBox::critical(this, "Error", "Error while loading plugin.");
+            deltempdir();
+            this->hide();
+        }
 
         this->setWindowTitle("Past pictures of the day (Wikimedia Commons)");
 
@@ -230,11 +236,13 @@ void PhotoBrowser::_read_settings()
     settings.endGroup();
 
     settings.beginGroup("SETTINGS");
+    _pluginsdir = settings.value("pluginsdir","").toString();
     _WallpaperDir = settings.value("picturedir","").toString();
     settings.endGroup();
 
     settings.beginGroup("PROVIDER_SETTINGS");
     _lang = settings.value("lang","").toString();
+    _selected_plugin = settings.value("selected_plugin","").toString();
     settings.endGroup();
 }
 
@@ -436,8 +444,6 @@ void PhotoBrowser::download_thumb(int days)
     progressdialog.move(QApplication::desktop()->screen()->rect().center() - progressdialog.rect().center());
     progressdialog.show();
 
-    download_wikimedia_commons_potd _wikimedia_commons_potd;
-
     QDate selected_date=ui->calendarWidget->selectedDate();
 
     QString year;
@@ -454,7 +460,7 @@ void PhotoBrowser::download_thumb(int days)
         month=selected_date.toString("MM");
         day=selected_date.toString("dd");
 
-        _wikimedia_commons_potd.get_wikimedia_commons_potd(true, _thumbfiledir, _lang, year.toInt(), month.toInt(), day.toInt());
+        basicinterface->get_picture(true, _thumbfiledir, _lang, year.toInt(), month.toInt(), day.toInt());
 
         selected_date=selected_date.addDays(-1);
 
@@ -576,8 +582,7 @@ void PhotoBrowser::download_and_set()
         month=date.toString("MM");
         day=date.toString("dd");
 
-        download_wikimedia_commons_potd _wikimedia_commons_potd;
-        _wikimedia_commons_potd.get_wikimedia_commons_potd(false, _WallpaperDir, _lang, year.toInt(), month.toInt(), day.toInt());
+        basicinterface->get_picture(false, _WallpaperDir, _lang, year.toInt(), month.toInt(), day.toInt());
 
         // (temp)thumb_filename is the real filename.
         QModelIndex index = ui->listView->currentIndex();
@@ -629,7 +634,6 @@ bool PhotoBrowser::select_single_value(QString desired_column, QString db_filepa
     if(udw_query.exec() && udw_query.next())
     {
         _output_value = udw_query.value(0).toString();
-
     }
     udw_query.finish();
     udw_query.clear();
@@ -644,4 +648,35 @@ void PhotoBrowser::deltempdir()
     {
         tempdir.removeRecursively();
     }
+}
+
+bool PhotoBrowser::loadPlugin(QString _pluginfile)
+{
+    QPluginLoader pluginLoader;
+
+    pluginLoader.setFileName(_pluginfile);
+
+    QObject *plugin = pluginLoader.instance();
+    if (plugin)
+    {
+        basicinterface = qobject_cast<BasicInterface *>(plugin);
+
+        if (basicinterface)
+        {
+            connect(plugin, SIGNAL(download_successful(QString, QString, QString,
+                                                      QString, QString,
+                                                      QString, QString,
+                                                      int, int, int,
+                                                      bool, QString)),
+                    this, SLOT(_add_record(QString, QString, QString,
+                                     QString, QString,
+                                     QString, QString,
+                                     int, int, int,
+                                     bool, QString)));
+
+            return true;
+        }
+        pluginLoader.unload();
+    }
+    return false;
 }

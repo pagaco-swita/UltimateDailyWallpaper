@@ -1,5 +1,5 @@
 /**
- * "UltimateDailyWallpaper" Copyright (C) 2022 Patrice Coni
+ * "UltimateDailyWallpaper" Copyright (C) 2023 Patrice Coni
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,12 +18,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "download_plugins/download_wikimedia_commons_potd.h"
 #include "connection.h"
 #include "about.h"
 #include "settingswindow.h"
 #include "setwallpaper.h"
 #include "photobrowser.h"
+#include "interfaces.h"
+#include "addrecord.h"
 
 #include <QMainWindow>
 #include <QAction>
@@ -56,7 +57,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-
 signals:
     void _setWallpaper(QString _wallpaperfile, int _set_Parameter);
 
@@ -64,6 +64,18 @@ private slots:
     void _display_tooltip(QString _tooltip_title, QString _tooltip_message);
     void slotActive(QSystemTrayIcon::ActivationReason r);
     void check_content();
+    void _add_record(QString _description,
+                     QString _copyright,
+                     QString _provider,
+                     QString _title_headline,
+                     QString _filename,
+                     QString _browser_url,
+                     QString _thumb_filename,
+                     int _size_height,
+                     int _size_width,
+                     int pageid,
+                     bool tempdatabase,
+                     QString potd_date);
 
     // basemenu
     void wikimedia_commons_more_pictures();
@@ -73,16 +85,21 @@ private slots:
     void basemnu_settings();
     void basemnu_aboutapp();
 
-    // menu provider
-    void providermnu_wikipedia_commons_potd();
-
-private:        
+private:
     setWallpaper setwall;
-    download_wikimedia_commons_potd _wikimedia_commons_potd;
+    addrecord add_record;
+
+    BasicInterface * basicinterface;
+    ExtendedFunctionInterface * extendedfunctioninterface;
+    MenuInterface * menuinterface;
+    SubMenuInterface * submenuinterface;
+
     QSystemTrayIcon * mSystemTrayIcon;
     QTimer * _autoChangeTimer = NULL;
     QTimer * timer;
 
+    QStringList detected_plugins;
+    QStringList detected_providers;
     QStringList datelist;
     QStringList selected_datelist;
     QStringList filenamelist;
@@ -100,12 +117,14 @@ private:
     QString _db_rec_thumb_filename;
     QString _db_rec_url;
     QString _thumbfiledir;
+    QString _selected_provider;
+    QString _selected_plugin;
+    QString _pluginsdir;
 
     int _db_rec_size_width;
     int _db_rec_size_height;
     int _store_days;
     int _autochange;
-    int _selected_provider;
     int _used_desktop;
     int _time_hours;
     int _time_minutes;
@@ -114,24 +133,28 @@ private:
     void set_autochange();
     void no_autochange();
     void runscript(QString content);
-    void get_last_record(int provider);
+    void get_last_record(QString provider);
     void load_settings();
     void request_dl_wallpaper();
     void set_SystemTrayIcon();
     void set_ContextMenu();
-    void create_MenuHead(QString description, QString title, QString thumbfile);
+    void create_MenuHead(QString description,
+                         QString title,
+                         QString thumbfile);
     void create_Menu();
     void create_Actions();
     void load_wallpaper();
-    void change_provider(int _selected_provider);
+    void change_provider(QString _selected_provider, QString _plugin);
     void delete_old_pictures();
     void delete_old_records();
     void update_menu();
     void update_all();
     void show_photobrowser(int mode);
+    void detectPlugins();
     bool check_internet_connection();
     bool get_date_list();
     bool create_filenamelist();
+    bool loadPlugin(QString _pluginfilename);
 
     // head of the basemenu
     QImage _headImage;
@@ -146,6 +169,7 @@ private:
     // basemenu
     QMenu *basemenu;
     QMenu *provider;
+    QMenu *plugin_specific_menu;
 
     QAction *getnewpicture;
     QAction *moreinformation;

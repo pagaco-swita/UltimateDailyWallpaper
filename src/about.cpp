@@ -1,5 +1,5 @@
 /**
- * "UltimateDailyWallpaper" Copyright (C) 2022 Patrice Coni
+ * "UltimateDailyWallpaper" Copyright (C) 2023 Patrice Coni
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,9 +28,13 @@ About::About(QWidget *parent) :
     ui->setupUi(this);
     ui->label_2->setText("Application name: "+QApplication::applicationName());
 
-    QString version="0.0.2";
+    QString _version=APP_VERSION;
     ui->label_3->clear();
-    ui->label_3->setText("Version: "+version);
+    ui->label_3->setText("Version: "+_version);
+
+    QString _developer="Patrice Coni";
+    ui->label_5->clear();
+    ui->label_5->setText("Developer: "+_developer);
 }
 
 About::~About()
