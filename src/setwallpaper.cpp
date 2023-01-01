@@ -90,7 +90,11 @@ void setWallpaper::_set_wallpaper(QString _wallpaperfile, int _Parameter)
             break;
         case 7:
             //LXQt
-            command="pcmanfm-qt --set-wallpaper="+_wallpaperfile+" --wallpaper-mode=stretch";
+            command="pcmanfm-qt --set-wallpaper=\""+_wallpaperfile+"\" --wallpaper-mode=stretch";
+            break;
+        case 8:
+            //GNOME 3
+            command="gsettings set org.gnome.desktop.background picture-uri \"file://"+_wallpaperfile+"\"";
             break;
         }
         if(!(_Parameter==6) && !(_Parameter==2))

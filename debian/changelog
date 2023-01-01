@@ -1,4 +1,10 @@
-ultimatedailywallpaper (1.0.2-1) UNRELEASED; urgency=medium
+ultimatedailywallpaper (1.0.3-1) UNRELEASED; urgency=medium
+
+  * bug fixed: error while set wallpaper on LXQt
+
+ -- Patrice Coni <patrice.coni-dev@yandex.com>  Sun, 01 Jan 2023 22:56:19 +0100
+
+ultimatedailywallpaper (1.0.2-1) unstable; urgency=medium
 
   * bug fixed in mainwindow.cpp: Application crashes if last used plugin file does not exists.
 

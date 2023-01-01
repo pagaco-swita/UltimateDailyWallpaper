@@ -84,7 +84,6 @@ QString Wikimedia_Commons_potd::plugininfo()
     return info;
 }
 
-
 QString Wikimedia_Commons_potd::provider()
 {
     return tr("Wikimedia Commons - Picture of the day");

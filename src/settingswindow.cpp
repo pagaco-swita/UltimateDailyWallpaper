@@ -107,6 +107,7 @@ void SettingsWindow::set_values()
     ui->comboBox->addItem("Trinity Desktop Environment (TDE)");
     ui->comboBox->addItem("KDE Plasma 5");
     ui->comboBox->addItem("LXQt");
+    ui->comboBox->addItem("GNOME 3");
 
     ui->comboBox->setCurrentIndex(_Parameter);
 }
