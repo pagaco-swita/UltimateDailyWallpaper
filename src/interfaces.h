@@ -35,6 +35,7 @@ public:
                              int day)=0;
     virtual QString provider()=0;
     virtual QString pluginname()=0;
+    virtual QString plugininfo()=0;
 
     virtual bool ExtendedFunctionInterface()=0;
     virtual bool AdditionalFunctionInterface()=0;

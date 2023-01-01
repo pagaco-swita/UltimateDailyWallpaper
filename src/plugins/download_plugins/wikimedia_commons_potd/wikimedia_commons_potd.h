@@ -40,10 +40,10 @@ public:
     Wikimedia_Commons_potd();
     ~Wikimedia_Commons_potd();
 
-    virtual bool ExtendedFunctionInterface() override;
-    virtual bool AdditionalFunctionInterface() override;
-    virtual bool MenuInterface() override;
-    virtual bool SubMenuInterface() override;
+    bool ExtendedFunctionInterface() override;
+    bool AdditionalFunctionInterface() override;
+    bool MenuInterface() override;
+    bool SubMenuInterface() override;
 
     void get_picture(bool downloadthumb,
                      QString _picturedir,
@@ -54,6 +54,7 @@ public:
 
     QString provider() override;
     QString pluginname() override;
+    QString plugininfo();
 
     void get_wikimedia_commons_potd(bool downloadthumb,
                                     QString _picturedir,

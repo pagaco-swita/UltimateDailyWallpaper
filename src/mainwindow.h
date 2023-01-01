@@ -169,13 +169,14 @@ private:
     // basemenu
     QMenu *basemenu;
     QMenu *provider;
-    QMenu *plugin_specific_menu;
+    QMenu *aboutmenu;
 
     QAction *getnewpicture;
     QAction *moreinformation;
     QAction *loadexistingpicture;
     QAction *settings;
     QAction *aboutapp;
+    QAction *aboutplugin;
     QAction *quitapp;
 
     // QActions for menu provider

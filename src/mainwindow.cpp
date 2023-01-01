@@ -44,6 +44,7 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     qApp->setAttribute(Qt::AA_DontShowIconsInMenus, false);
+    qApp->setQuitOnLastWindowClosed(false);
 
     _databaseFilePath = QDir::homePath()+"/.UltimateDailyWallpaper/udw_database.sqlite";
     _AppFileDir = QDir::homePath()+"/.UltimateDailyWallpaper";
@@ -414,8 +415,9 @@ void MainWindow::create_MenuHead(QString description, QString title, QString thu
 
 void MainWindow::create_Menu()
 {
-    basemenu = new QMenu(this);
-    provider = new QMenu(this);
+    basemenu  = new QMenu(this);
+    provider  = new QMenu(this);
+    aboutmenu = new QMenu(this);
 
     _widgetaction = new QWidgetAction(basemenu);
     _widgetaction->setDefaultWidget(_descWidget);
@@ -482,7 +484,10 @@ void MainWindow::create_Menu()
     }
 
     basemenu->addAction(settings);
-    basemenu->addAction(aboutapp);
+    aboutmenu = basemenu->addMenu("&About");
+    aboutmenu->addAction(aboutapp);
+    aboutmenu->addAction(aboutplugin);
+
     basemenu->addSeparator();
     basemenu->addAction(quitapp);
 }
@@ -508,8 +513,26 @@ void MainWindow::create_Actions()
     settings = new QAction(tr("&Settings"), this);
     connect(settings, &QAction::triggered, this, &MainWindow::basemnu_settings);
 
-    aboutapp = new QAction(tr("&About"), this);
+    aboutapp = new QAction(tr("&About this application"), this);
     connect(aboutapp, &QAction::triggered, this, &MainWindow::basemnu_aboutapp);
+
+    aboutplugin = new QAction(tr("&Currently used plugin"), this);
+    connect(aboutplugin, &QAction::triggered, [this]()
+    {
+        QMessageBox MsgInfo;
+        MsgInfo.setIcon(QMessageBox::Information);
+        MsgInfo.setWindowTitle("About the currently used plugin");
+        MsgInfo.setText(basicinterface->plugininfo());
+        MsgInfo.setStandardButtons(QMessageBox::Ok);
+        connect(MsgInfo.button(QMessageBox::Ok), &QPushButton::clicked, [this]
+        {
+            this->hide();
+        });
+
+        MsgInfo.exec();
+
+        //QMessageBox::information(this, "About this plugin", basicinterface->plugininfo());
+    });
 
     quitapp = new QAction(tr("&Quit"), this);
     connect(quitapp, SIGNAL(triggered()), qApp, SLOT(quit()));

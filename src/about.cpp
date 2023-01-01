@@ -32,9 +32,9 @@ About::About(QWidget *parent) :
     ui->label_3->clear();
     ui->label_3->setText("Version: "+_version);
 
-    QString _developer="Patrice Coni";
+    QString _author="Patrice Coni";
     ui->label_5->clear();
-    ui->label_5->setText("Developer: "+_developer);
+    ui->label_5->setText("Author: "+_author);
 }
 
 About::~About()

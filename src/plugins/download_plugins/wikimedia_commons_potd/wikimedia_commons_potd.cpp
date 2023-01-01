@@ -67,14 +67,23 @@ void Wikimedia_Commons_potd::get_picture(bool downloadthumb,
 
 QString Wikimedia_Commons_potd::pluginname()
 {
-    QString name;
-    name.append("Wikimedia Commons - Picture of the day Downloader");
-    name.append(" - ");
-    name.append("v");
-    name.append(PLUGIN_VERSION);
-
-    return name;
+    return "Wikimedia Commons - Picture of the day Downloader";
 }
+
+QString Wikimedia_Commons_potd::plugininfo()
+{
+    QString info;
+    info.append("Name: "+pluginname());
+    info.append("\n");
+    info.append("Description: Wikimedia Commons picture of the day (POTD)\n");
+    info.append("Author: Patrice Coni\n");
+    info.append("Version: ");
+    info.append("v");
+    info.append(PLUGIN_VERSION);
+
+    return info;
+}
+
 
 QString Wikimedia_Commons_potd::provider()
 {

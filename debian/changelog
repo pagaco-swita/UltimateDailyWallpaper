@@ -1,8 +1,10 @@
-ultimatedailywallpaper (1.0.1-1) UNRELEASED; urgency=medium
+ultimatedailywallpaper (1.0.1-2) UNRELEASED; urgency=medium
 
   * bug fixed in photobrowser.cpp
+  * added: Messagebox about the currently used plugin
+  * added: About menu
 
- -- Patrice Coni <patrice.coni-dev@yandex.com>  Sun, 01 Jan 2023 11:55:57 +0100
+ -- Patrice Coni <patrice.coni-dev@yandex.com>  Sun, 01 Jan 2023 12:57:05 +0100
 
 ultimatedailywallpaper (1.0.0-1) unstable; urgency=medium
 
