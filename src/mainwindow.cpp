@@ -530,8 +530,6 @@ void MainWindow::create_Actions()
         });
 
         MsgInfo.exec();
-
-        //QMessageBox::information(this, "About this plugin", basicinterface->plugininfo());
     });
 
     quitapp = new QAction(tr("&Quit"), this);
