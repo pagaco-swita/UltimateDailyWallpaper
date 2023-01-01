@@ -12,6 +12,7 @@ UltimateDailyWallpaper is a simple utility to use the daily picture of a provide
 #### Requierment: <br />
 * Qt 5.14 (or higher) - Download Qt here: https://www.qt.io/download
 * imgp - https://github.com/jarun/imgp
+* Recomment: gnome-shell-extension-appindicator - support for legacy tray icons on GNOME 3 -> https://github.com/ubuntu/gnome-shell-extension-appindicator
 
 #### Get the latest build:<br />
 <a href="hhttps://github.com/pagaco-swita/ultimatedailywallpaper/releases">https://github.com/pagaco-swita/ultimatedailywallpaper/releases</a>
