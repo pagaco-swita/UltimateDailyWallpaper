@@ -62,6 +62,18 @@ private slots:
     void setWallpaperFile();
     void on_listView_clicked();
     void _getmoreInformationsButton_clicked();
+    void _add_record(QString _description,
+                     QString _copyright,
+                     QString _provider,
+                     QString _title_headline,
+                     QString _filename,
+                     QString _browser_url,
+                     QString _thumb_filename,
+                     int _size_height,
+                     int _size_width,
+                     int pageid,
+                     bool tempdatabase,
+                     QString potd_date);
 
 private:
     Ui::PhotoBrowser *ui;

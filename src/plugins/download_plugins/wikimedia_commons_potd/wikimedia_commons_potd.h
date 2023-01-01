@@ -26,7 +26,6 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 
-#include "addrecord.h"
 #include "interfaces.h"
 #include "photobrowser.h"
 
@@ -82,7 +81,6 @@ signals:
 private:
     QNetworkAccessManager dl_manager;
     QNetworkReply *reply;
-    addrecord * add_record;
 
     QString _reply;
     QString picture_filename;

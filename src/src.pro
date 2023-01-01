@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #---------------------------------------------------
 
-VERSION   = 1.0.0
+VERSION   = 1.0.1
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 QT       += core gui
@@ -65,11 +65,6 @@ FORMS += \
     about.ui \
     photobrowser.ui \
     settingswindow.ui
-
-# Default rules for deployment.
-# qnx: target.path = /tmp/$${TARGET}/bin
-# else: unix:!android: target.path = /opt/$${TARGET}/bin
-# !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
     udw_ressource.qrc

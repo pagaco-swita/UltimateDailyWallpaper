@@ -36,10 +36,12 @@
 #include <QDesktopServices>
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <QSqlError>
 #include <QDate>
 #include <QMessageBox>
 #include <QProgressDialog>
 #include <QDesktopWidget>
+#include <QDebug>
 
 PhotoBrowser::PhotoBrowser(QWidget *parent) :
     QDialog(parent),
@@ -679,4 +681,80 @@ bool PhotoBrowser::loadPlugin(QString _pluginfile)
         pluginLoader.unload();
     }
     return false;
+}
+
+void PhotoBrowser::_add_record(QString _description,
+                             QString _copyright,
+                             QString _provider,
+                             QString _title_headline,
+                             QString _filename,
+                             QString _browser_url,
+                             QString _thumb_filename,
+                             int _size_height,
+                             int _size_width,
+                             int pageid,
+                             bool tempdatabase,
+                             QString potd_date)
+{
+    QSqlDatabase udw_db;
+
+    QString _tempdatabaseFilePath=QDir::homePath()+"/.UltimateDailyWallpaper/temp/temp_udw_database.sqlite";
+
+    if(QSqlDatabase::contains("qt_sql_default_connection"))
+    {
+        udw_db = QSqlDatabase::database("qt_sql_default_connection");
+    }
+    else
+    {
+        udw_db = QSqlDatabase::addDatabase("QSQLITE");
+    }
+
+    if(tempdatabase==true)
+    {
+        udw_db.setDatabaseName(_tempdatabaseFilePath);
+    }
+    else
+    {
+        udw_db.setDatabaseName(_databaseFilePath);
+    }
+
+    udw_db.open();
+
+    QSqlQuery udw_query(udw_db);
+
+    if(tempdatabase==true)
+    {
+        udw_query.prepare("INSERT INTO udw_history (id, date, description, copyright, title, provider, filename, browser_url, size_width, size_height, thumb_filename, pageid, potd_date)"
+                                            "VALUES (:id, :date, :description, :copyright, :title, :provider, :filename, :browser_url, :size_width, :size_height, :thumb_filename, :pageid, :potd_date)");
+    } else
+    {
+        udw_query.prepare("INSERT INTO udw_history (id, date, description, copyright, title, provider, filename, browser_url, size_width, size_height, thumb_filename, pageid)"
+                                            "VALUES (:id, :date, :description, :copyright, :title, :provider, :filename, :browser_url, :size_width, :size_height, :thumb_filename, :pageid)");
+    }
+    udw_query.bindValue(":id", QDateTime::currentDateTime().toString("yyyyMMddHHmmsszzz"));
+    udw_query.bindValue(":date", QDate::currentDate().toString("yyyyMMdd"));
+    udw_query.bindValue(":description", _description);
+    udw_query.bindValue(":copyright", _copyright);
+    udw_query.bindValue(":title", _title_headline);
+    udw_query.bindValue(":provider", _provider);
+    udw_query.bindValue(":filename", _filename);
+    udw_query.bindValue(":browser_url", _browser_url);
+    udw_query.bindValue(":size_width", _size_width);
+    udw_query.bindValue(":size_height", _size_height);
+    udw_query.bindValue(":thumb_filename", _thumb_filename);
+    udw_query.bindValue(":pageid", pageid);
+
+    if(tempdatabase==true)
+    {
+        udw_query.bindValue(":potd_date", potd_date);
+    }
+
+    if(!udw_query.exec())
+    {
+        qDebug() << udw_query.lastError();
+    }
+
+    udw_query.finish();
+    udw_query.clear();
+    udw_db.close();
 }
