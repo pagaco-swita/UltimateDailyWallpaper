@@ -32,8 +32,8 @@
 #include <QThread>
 #include <QDate>
 #include <QDesktopWidget>
-#include <QString>
 #include <QPluginLoader>
+#include <QFileInfo>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -1055,7 +1055,16 @@ bool MainWindow::loadPlugin(QString _pluginfilename)
         change_provider(detected_providers.at(0), detected_plugins.at(0));
     }
 
-    pluginLoader.setFileName(_pluginsdir+"/"+_pluginfilename);
+    if(QFileInfo::exists(_pluginsdir+"/"+_pluginfilename))
+    {
+        pluginLoader.setFileName(_pluginsdir+"/"+_pluginfilename);
+    }
+    else
+    {
+        detectPlugins();
+        change_provider(detected_providers.at(0), detected_plugins.at(0));
+        pluginLoader.setFileName(_pluginsdir+"/"+detected_plugins.at(0));
+    }
 
     qDebug().noquote()<<"Loading plugin...";
 

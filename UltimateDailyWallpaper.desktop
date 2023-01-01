@@ -6,4 +6,4 @@ Comment=A utility to set the daily image as wallpaper of a selected provider.
 Terminal=false
 Keywords=background;wallpaper;
 Icon=/usr/share/pixmaps/ultimatedesktopwallpaper_icon.png
-Categories=Utility; 
+Categories=Utility;

@@ -4,11 +4,11 @@ Upstream-Contact: Patrice Coni <patrice.coni-dev@yandex.com>
 Source: https://github.com/pagaco-swita/ultimatedailywallpaper
 
 Files: *
-Copyright: 2022 Patrice Coni <patrice.coni-dev@yandex.com>
+Copyright: 2023 Patrice Coni <patrice.coni-dev@yandex.com>
 License: GPL-3.0+
 
 Files: debian/*
-Copyright: 2022 Patrice Coni <patrice.coni-dev@yandex.com>
+Copyright: 2023 Patrice Coni <patrice.coni-dev@yandex.com>
 License: GPL-3.0+
 
 License: GPL-3.0+

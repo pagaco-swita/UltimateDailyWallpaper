@@ -1,4 +1,10 @@
-ultimatedailywallpaper (1.0.1-2) UNRELEASED; urgency=medium
+ultimatedailywallpaper (1.0.2-1) UNRELEASED; urgency=medium
+
+  * bug fixed in mainwindow.cpp: Application crashes if last used plugin file does not exists.
+
+ -- Patrice Coni <patrice.coni-dev@yandex.com>  Sun, 01 Jan 2023 14:10:38 +0100
+
+ultimatedailywallpaper (1.0.1-2) unstable; urgency=medium
 
   * bug fixed in photobrowser.cpp
   * added: Messagebox about the currently used plugin
