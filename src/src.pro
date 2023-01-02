@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #---------------------------------------------------
 
-VERSION   = 1.0.4
+VERSION   = 1.0.5
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 QT       += core gui

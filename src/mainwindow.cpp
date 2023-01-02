@@ -476,7 +476,11 @@ void MainWindow::create_Menu()
         {
             emit(change_provider(detected_providers.at(i), detected_plugins.at(i)));
             load_settings();
-            loadPlugin(detected_plugins.at(i));
+            if (loadPlugin(_selected_plugin))
+            {
+                qDebug().noquote()<<"done.";
+                qDebug().noquote()<<"Used plugin: "+_selected_plugin<<"/"<<basicinterface->pluginname();
+            }
             update_all();
         });
 
