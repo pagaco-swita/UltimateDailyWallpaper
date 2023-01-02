@@ -596,7 +596,7 @@ void MainWindow::basemnu_aboutapp()
 
 void MainWindow::set_SystemTrayIcon()
 {
-    mSystemTrayIcon->setIcon(QIcon(":/ultimatedesktopwallpaper_icon.png"));
+    mSystemTrayIcon->setIcon(QIcon(":/icons/ultimatedesktopwallpaper_icon.png"));
     mSystemTrayIcon->show();
     mSystemTrayIcon->setVisible(true);
 }

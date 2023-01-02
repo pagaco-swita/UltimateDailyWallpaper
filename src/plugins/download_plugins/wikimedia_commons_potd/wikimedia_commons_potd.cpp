@@ -28,6 +28,8 @@
 #include <QProcess>
 #include <QMetaObject>
 #include <QDesktopWidget>
+#include <QSqlQuery>
+#include <QSqlError>
 
 #include "wikimedia_commons_potd.h"
 
