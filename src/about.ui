@@ -40,7 +40,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="udw_ressource.qrc">:/ultimatedesktopwallpaper_icon.png</pixmap>
+        <pixmap resource="udw_ressource.qrc">:/icons/ultimatedesktopwallpaper_icon.png</pixmap>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
