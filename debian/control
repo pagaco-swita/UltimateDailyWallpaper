@@ -11,7 +11,7 @@ Package: ultimatedailywallpaper
 Architecture: any
 Depends: libqt5gui5, libqt5widgets5, libqt5core5a, libqt5network5, libqt5networkauth5, libqt5xml5, libqt5concurrent5, libqt5sql5, libqt5sql5-psql, sensible-utils, wget, imgp, ${shlibs:Depends}, ${misc:Depends}
 Suggests: gnome-shell-extension-appindicator | gnome-shell-extension-top-icons-plus
-Description: Daily image as wallpaper of a selected provider.
+Description: Daily image as wallpaper of a selected provider
  UltimateDailyWallpaper is a utility to set the Wikimedia Commons
  daily picture as wallpaper. It saves images in a high quality.
  Further information about each picture can be obtained from the

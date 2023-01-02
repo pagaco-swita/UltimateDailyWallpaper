@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>ultimatedesktopwallpaper_icon.png</file>
+        <file>icons/ultimatedesktopwallpaper_icon.png</file>
         <file>icons/Cancel_256x256.png</file>
         <file>icons/Check_256x256.png</file>
     </qresource>

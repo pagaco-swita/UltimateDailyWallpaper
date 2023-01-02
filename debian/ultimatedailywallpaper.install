@@ -1,4 +1,4 @@
 bin/UltimateDailyWallpaper usr/bin
 UltimateDailyWallpaper.desktop usr/share/applications
-src/ultimatedesktopwallpaper_icon.png usr/share/pixmaps
+src/icons/ultimatedesktopwallpaper_icon.png usr/share/pixmaps
 plugins/* usr/lib/UltimateDailyWallpaper-plugins

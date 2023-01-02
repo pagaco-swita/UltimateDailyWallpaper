@@ -477,7 +477,7 @@ void MainWindow::create_Menu()
             emit(change_provider(detected_providers.at(i), detected_plugins.at(i)));
             load_settings();
             loadPlugin(detected_plugins.at(i));
-            update_menu();
+            update_all();
         });
 
         provider->addAction(action);
