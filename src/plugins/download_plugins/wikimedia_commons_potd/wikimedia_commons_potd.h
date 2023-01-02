@@ -27,7 +27,6 @@
 #include <QNetworkReply>
 
 #include "interfaces.h"
-#include "photobrowser.h"
 
 class Wikimedia_Commons_potd : public QObject,
                                public BasicInterface
@@ -54,7 +53,7 @@ public:
 
     QString provider() override;
     QString pluginname() override;
-    QString plugininfo();
+    QString plugininfo() override;
 
     void get_wikimedia_commons_potd(bool downloadthumb,
                                     QString _picturedir,
