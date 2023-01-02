@@ -525,7 +525,7 @@ void MainWindow::create_Actions()
     {
         QMessageBox MsgInfo;
         MsgInfo.setIcon(QMessageBox::Information);
-        MsgInfo.setWindowTitle("About the currently used plugin");
+        MsgInfo.setWindowTitle("Currently used plugin");
         MsgInfo.setText(basicinterface->plugininfo());
         MsgInfo.setStandardButtons(QMessageBox::Ok);
         connect(MsgInfo.button(QMessageBox::Ok), &QPushButton::clicked, [this]
