@@ -24,8 +24,6 @@
 #include "setwallpaper.h"
 #include "photobrowser.h"
 #include "interfaces.h"
-#include "addrecord.h"
-
 #include <QMainWindow>
 #include <QAction>
 #include <QSql>
@@ -87,8 +85,6 @@ private slots:
 
 private:
     setWallpaper setwall;
-    addrecord add_record;
-
     BasicInterface * basicinterface;
     ExtendedFunctionInterface * extendedfunctioninterface;
     MenuInterface * menuinterface;

@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #---------------------------------------------------
 
-VERSION   = 1.0.6
+VERSION   = 1.0.7
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 QT       += core gui
@@ -43,7 +43,6 @@ unix:OBJECTS_DIR = ../build/o/unix
 
 SOURCES += \
     about.cpp \
-    addrecord.cpp \
     main.cpp \
     mainwindow.cpp \
     photobrowser.cpp \
@@ -52,7 +51,6 @@ SOURCES += \
 
 HEADERS += \
     about.h \
-    addrecord.h \
     connection.h \
     interfaces.h \
     itemdelegate.h \

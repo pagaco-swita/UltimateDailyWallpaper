@@ -20,7 +20,6 @@
 
 #include "setwallpaper.h"
 #include "interfaces.h"
-#include "addrecord.h"
 
 #include <QDialog>
 #include <QModelIndex>
@@ -78,7 +77,6 @@ private slots:
 private:
     Ui::PhotoBrowser *ui;
     setWallpaper _setwall;
-    addrecord add_record;
     BasicInterface * basicinterface;
     QVBoxLayout *_layout_details;
     QLabel *_label_Details;

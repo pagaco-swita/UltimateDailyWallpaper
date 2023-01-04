@@ -1,3 +1,9 @@
+ultimatedailywallpaper (1.0.7-1) UNRELEASED; urgency=medium
+
+  * removed: addrecord.h and addrecord.cpp
+
+ -- Patrice Coni <patrice.coni-dev@yandex.com>  Wed, 04 Jan 2023 21:28:55 +0100
+
 ultimatedailywallpaper (1.0.6-1) unstable; urgency=medium
 
   * Addition in the create_MenuHead function in mainwindow.cpp.

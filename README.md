@@ -36,3 +36,4 @@ $ make -f Makefile
 
 ![Screenshot](https://github.com/pagaco-swita/ultimatedailywallpaper/blob/main/screenshots/load_existing_wallpapers.png)
 
+ 
