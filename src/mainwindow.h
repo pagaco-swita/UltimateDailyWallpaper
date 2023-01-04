@@ -120,6 +120,7 @@ private:
     QString _selected_provider;
     QString _selected_plugin;
     QString _pluginsdir;
+    QString _copyright;
 
     int _db_rec_size_width;
     int _db_rec_size_height;

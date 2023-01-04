@@ -391,8 +391,21 @@ void MainWindow::create_MenuHead(QString description, QString title, QString thu
     _descWidget = new QWidget();
     dL = new QVBoxLayout();
     _imageLabel = new QLabel();
-    _labelTitle = new QLabel(title);
-    _labelDescription = new QLabel(description);
+    _labelTitle = new QLabel();
+    _labelDescription = new QLabel();
+
+    _labelTitle->setText(title);
+
+    if(!(_selected_provider=="Wikimedia Commons - Picture of the day"))
+    {
+        if(!(_copyright.isEmpty()))
+        {
+            description.append(" - ");
+            description.append(_copyright);
+        }
+    }
+
+    _labelDescription->setText(description);
 
     _imageLabel->setAlignment(Qt::AlignCenter);
     _labelTitle->setAlignment(Qt::AlignCenter);
@@ -697,6 +710,13 @@ void MainWindow::get_last_record(QString provider)
     while(udw_query.next()){
         if(udw_query.last()) {
             _db_rec_url = udw_query.value(0).toString();
+        }
+    }
+    udw_query.prepare("SELECT copyright FROM udw_history WHERE provider=\""+provider+"\"");
+    udw_query.exec();
+    while(udw_query.next()){
+        if(udw_query.last()) {
+            _copyright = udw_query.value(0).toString();
         }
     }
     udw_query.finish();
