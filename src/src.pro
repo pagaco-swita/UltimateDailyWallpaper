@@ -15,14 +15,10 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #---------------------------------------------------
 
-VERSION   = 1.0.7
+VERSION   = 1.0.8
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
-QT       += core gui
-QT       += network
-QT       += xml
-QT       += concurrent
-QT       += sql
+QT       += core gui network xml concurrent sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

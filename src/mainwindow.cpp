@@ -494,6 +494,10 @@ void MainWindow::create_Menu()
                 qDebug().noquote()<<"done.";
                 qDebug().noquote()<<"Used plugin: "+_selected_plugin<<"/"<<basicinterface->pluginname();
             }
+            else
+            {
+                QMessageBox::critical(this, "Error", "Error while loading plugin.");
+            }
             update_all();
         });
 
@@ -516,7 +520,15 @@ void MainWindow::create_Actions()
     connect(getnewpicture, &QAction::triggered, this, &MainWindow::mnu_getnewpicture);
     */
 
-    moreinformation = new QAction(tr("&About this picture and license"), this);
+    if(_selected_provider=="Wikimedia Commons - Picture of the day")
+    {
+        moreinformation = new QAction(tr("&About this picture and license"), this);
+    }
+    else
+    {
+        moreinformation = new QAction(tr("&About this picture and copyright"), this);
+    }
+
     connect(moreinformation, &QAction::triggered, this, &MainWindow::mnu_moreinformation);
 
     if(_selected_provider=="Wikimedia Commons - Picture of the day")
@@ -524,13 +536,14 @@ void MainWindow::create_Actions()
         wmc_potd_morepictures = new QAction(tr("&Download past pictures"), this);
         connect(wmc_potd_morepictures, &QAction::triggered, this, &MainWindow::wikimedia_commons_more_pictures);
     }
+
     loadexistingpicture = new QAction(tr("&Load existing picture"), this);
     connect(loadexistingpicture, &QAction::triggered, this, &MainWindow::basemnu_loadexistingpicture);
 
     settings = new QAction(tr("&Settings"), this);
     connect(settings, &QAction::triggered, this, &MainWindow::basemnu_settings);
 
-    aboutapp = new QAction(tr("&About this application"), this);
+    aboutapp = new QAction(tr("&Application"), this);
     connect(aboutapp, &QAction::triggered, this, &MainWindow::basemnu_aboutapp);
 
     aboutplugin = new QAction(tr("&Currently used plugin"), this);
@@ -1090,7 +1103,7 @@ bool MainWindow::loadPlugin(QString _pluginfilename)
         pluginLoader.setFileName(_pluginsdir+"/"+detected_plugins.at(0));
     }
 
-    qDebug().noquote()<<"Loading plugin...";
+    qDebug().noquote()<<"Load plugin...";
 
     QObject *plugin = pluginLoader.instance();
     if (plugin)

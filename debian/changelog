@@ -1,4 +1,10 @@
-ultimatedailywallpaper (1.0.7-1) UNRELEASED; urgency=medium
+ultimatedailywallpaper (1.0.8-1) UNRELEASED; urgency=medium
+
+  * modified in mainwindow.cpp: function create_actions() (no bug)
+
+ -- Patrice Coni <patrice.coni-dev@yandex.com>  Thu, 05 Jan 2023 18:04:31 +0100
+
+ultimatedailywallpaper (1.0.7-1) unstable; urgency=medium
 
   * removed: addrecord.h and addrecord.cpp
 
