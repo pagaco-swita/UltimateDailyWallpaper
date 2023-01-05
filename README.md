@@ -4,9 +4,9 @@
 UltimateDailyWallpaper is a simple utility to use the daily picture of a provider as wallpaper on linux based operating systems. It saves images in a high quality. Further information about each picture can be obtained from the internet with a single click. It integrates with most X11 desktop environments to provide automatically changing wallpaper. It allows a simple integration of plugins, which allows downloading a daily wallpaper from any one provider.
 <br>
 #### Features of the application: <br />
- * Allows download the daily picture of Wikimedia Commons (POTD) by a plugin
+ * Allows download the daily picture of Wikimedia Commons (POTD)
  * Allows download "pictures of the day" from past days of Wikimedia Commons
- * Allows integration and use of plugins to download of a daily picture from a specific provider
+ * Allows integration and use of plugins to download a daily picture of any provider
  * Supports the most of X11 desktop environments to provide automatically changing wallpaper
 
 #### Requierment: <br />
