@@ -545,7 +545,7 @@ void MainWindow::create_Actions()
     settings = new QAction(tr("&Settings"), this);
     connect(settings, &QAction::triggered, this, &MainWindow::basemnu_settings);
 
-    aboutapp = new QAction(tr("&Application"), this);
+    aboutapp = new QAction(tr("&This application"), this);
     connect(aboutapp, &QAction::triggered, this, &MainWindow::basemnu_aboutapp);
 
     aboutplugin = new QAction(tr("&Currently used plugin"), this);
@@ -1130,11 +1130,6 @@ bool MainWindow::loadPlugin(QString _pluginfilename)
         if(basicinterface->SetMenuInterface()==true)
         {
             menuinterface = qobject_cast<MenuInterface *>(plugin);
-        }
-
-        if(basicinterface->SetSubMenuInterface()==true)
-        {
-            submenuinterface = qobject_cast<SubMenuInterface *>(plugin);
         }
 
         if (basicinterface)
