@@ -461,7 +461,6 @@ void MainWindow::create_Menu()
         }
     }
 
-
     if(basicinterface->SetSubMenuInterface()==true)
     {
         auto menu = new QMenu;
