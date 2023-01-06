@@ -19,8 +19,9 @@
 #define INTERFACES_H
 
 #include <QObject>
-#include <QString>
+#include <QtPlugin>
 #include <QStringList>
+#include <QString>
 
 //! [0]
 class BasicInterface
@@ -37,10 +38,10 @@ public:
     virtual QString pluginname()=0;
     virtual QString plugininfo()=0;
 
-    virtual bool ExtendedFunctionInterface()=0;
-    virtual bool AdditionalFunctionInterface()=0;
-    virtual bool MenuInterface()=0;
-    virtual bool SubMenuInterface()=0;
+    virtual bool SetExtendedFunctionInterface()=0;
+    virtual bool SetAdditionalFunctionInterface()=0;
+    virtual bool SetMenuInterface()=0;
+    virtual bool SetSubMenuInterface()=0;
 
 signals:
     virtual void download_successful(QString _description,
@@ -60,6 +61,7 @@ signals:
 class ExtendedFunctionInterface
 {
 public:
+    virtual ~ExtendedFunctionInterface()=default;
     virtual void ExtendedFunction1()=0;
     virtual void ExtendedFunction2()=0;
 };
@@ -67,6 +69,7 @@ public:
 class AdditionalFunctionInterface
 {
 public:
+    virtual ~AdditionalFunctionInterface()=default;
     virtual void AdditionalFunction1()=0;
     virtual void AdditionalFunction2()=0;
     virtual void AdditionalFunction3()=0;
@@ -77,18 +80,20 @@ public:
 class MenuInterface
 {
 public:
+    virtual ~MenuInterface()=default;
     virtual QStringList MenuTriggers()=0;
 };
 
 class SubMenuInterface
 {
 public:
+    virtual ~SubMenuInterface()=default;
     virtual QString SubMenuTitle()=0;
     virtual QStringList SubMenuTriggers()=0;
     virtual QStringList SubMenuEmitStrings()=0;
 
 public slots:
-    virtual void SubMenuFunction(QString anything);
+    virtual void SubMenuFunction(QString anything)=0;
 };
 
 QT_BEGIN_NAMESPACE

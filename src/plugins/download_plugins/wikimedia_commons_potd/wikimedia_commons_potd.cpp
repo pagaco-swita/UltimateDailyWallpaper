@@ -37,22 +37,22 @@ Wikimedia_Commons_potd::Wikimedia_Commons_potd()
 {
 }
 
-bool Wikimedia_Commons_potd::ExtendedFunctionInterface()
+bool Wikimedia_Commons_potd::SetExtendedFunctionInterface()
 {
     return false;
 }
 
-bool Wikimedia_Commons_potd::AdditionalFunctionInterface()
+bool Wikimedia_Commons_potd::SetAdditionalFunctionInterface()
 {
     return false;
 }
 
-bool Wikimedia_Commons_potd::MenuInterface()
+bool Wikimedia_Commons_potd::SetMenuInterface()
 {
     return false;
 }
 
-bool Wikimedia_Commons_potd::SubMenuInterface()
+bool Wikimedia_Commons_potd::SetSubMenuInterface()
 {
     return false;
 }

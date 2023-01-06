@@ -39,10 +39,10 @@ public:
     Wikimedia_Commons_potd();
     ~Wikimedia_Commons_potd();
 
-    bool ExtendedFunctionInterface() override;
-    bool AdditionalFunctionInterface() override;
-    bool MenuInterface() override;
-    bool SubMenuInterface() override;
+    bool SetExtendedFunctionInterface() override;
+    bool SetAdditionalFunctionInterface() override;
+    bool SetMenuInterface() override;
+    bool SetSubMenuInterface() override;
 
     void get_picture(bool downloadthumb,
                      QString _picturedir,

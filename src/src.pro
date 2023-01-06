@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #---------------------------------------------------
 
-VERSION   = 1.0.8
+VERSION   = 1.1.0
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 QT       += core gui network xml concurrent sql

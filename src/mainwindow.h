@@ -24,6 +24,7 @@
 #include "setwallpaper.h"
 #include "photobrowser.h"
 #include "interfaces.h"
+
 #include <QMainWindow>
 #include <QAction>
 #include <QSql>
@@ -87,6 +88,7 @@ private:
     setWallpaper setwall;
     BasicInterface * basicinterface;
     ExtendedFunctionInterface * extendedfunctioninterface;
+    AdditionalFunctionInterface * additionalfunctioninterface;
     MenuInterface * menuinterface;
     SubMenuInterface * submenuinterface;
 

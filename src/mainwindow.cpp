@@ -446,7 +446,7 @@ void MainWindow::create_Menu()
         basemenu->addAction(wmc_potd_morepictures);
     }
 
-    if(basicinterface->MenuInterface()==true)
+    if(basicinterface->SetMenuInterface()==true)
     {
         for(int i=0;i<menuinterface->MenuTriggers().size();i++)
         {
@@ -461,20 +461,22 @@ void MainWindow::create_Menu()
         }
     }
 
-    if(basicinterface->SubMenuInterface()==true)
+
+    if(basicinterface->SetSubMenuInterface()==true)
     {
         auto menu = new QMenu;
+        menu=basemenu->addMenu(submenuinterface->SubMenuTitle());
         for(int i=0;i<submenuinterface->SubMenuTriggers().size();i++)
         {
             auto action = new QAction(submenuinterface->SubMenuTriggers().at(i), this);
             connect(action, &QAction::triggered, [=]()
             {
-                emit(submenuinterface->SubMenuFunction(submenuinterface->SubMenuEmitStrings().at(i)));
-                // do something;
+                submenuinterface->SubMenuFunction(submenuinterface->SubMenuEmitStrings().at(i));
+                load_settings();
+                update_all();
             });
             menu->addAction(action);
         }
-        menu=basemenu->addMenu(submenuinterface->SubMenuTitle());
     }
 
     basemenu->addSeparator();
@@ -1109,6 +1111,31 @@ bool MainWindow::loadPlugin(QString _pluginfilename)
     if (plugin)
     {
         basicinterface = qobject_cast<BasicInterface *>(plugin);
+
+        if(basicinterface->SetSubMenuInterface()==true)
+        {
+            submenuinterface = qobject_cast<SubMenuInterface *>(plugin);
+        }
+
+        if(basicinterface->SetExtendedFunctionInterface()==true)
+        {
+            extendedfunctioninterface = qobject_cast<ExtendedFunctionInterface *>(plugin);
+        }
+
+        if(basicinterface->SetAdditionalFunctionInterface()==true)
+        {
+            additionalfunctioninterface = qobject_cast<AdditionalFunctionInterface *>(plugin);
+        }
+
+        if(basicinterface->SetMenuInterface()==true)
+        {
+            menuinterface = qobject_cast<MenuInterface *>(plugin);
+        }
+
+        if(basicinterface->SetSubMenuInterface()==true)
+        {
+            submenuinterface = qobject_cast<SubMenuInterface *>(plugin);
+        }
 
         if (basicinterface)
         {
