@@ -20,8 +20,8 @@
 #include <QDir>
 #include <QDebug>
 #include <QApplication>
-#include <QtXml/QDomElement>
-#include <QtXml/QDomDocument>
+#include <QDomElement>
+#include <QDomDocument>
 #include <QXmlStreamReader>
 #include <QPixmap>
 #include <QUrl>

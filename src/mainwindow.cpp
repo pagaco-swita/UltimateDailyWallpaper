@@ -22,9 +22,9 @@
 #include <QDir>
 #include <QFile>
 #include <QTextStream>
-#include <QtNetwork/QNetworkRequest>
-#include <QtNetwork/QNetworkReply>
-#include <QtNetwork/QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QNetworkAccessManager>
 #include <QMessageBox>
 #include <QDebug>
 #include <QDesktopServices>
@@ -211,7 +211,6 @@ MainWindow::MainWindow(QWidget *parent)
     {
         no_autochange();
     }
-
 
     if(check_internet_connection()==false)
     {
