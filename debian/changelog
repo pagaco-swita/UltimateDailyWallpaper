@@ -1,4 +1,10 @@
-ultimatedailywallpaper (1.1.0-1) UNRELEASED; urgency=medium
+ultimatedailywallpaper (1.1.1-1) UNRELEASED; urgency=medium
+
+  * renamed: Submenu "Application" to "This application".
+
+ -- Patrice Coni <patrice.coni-dev@yandex.com>  Sat, 07 Jan 2023 09:34:36 +0100
+
+ultimatedailywallpaper (1.1.0-1) unstable; urgency=medium
 
   * Fixed bug on the interface
   * Fixed bug: error when create plugin-specific submenu
