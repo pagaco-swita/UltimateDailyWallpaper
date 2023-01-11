@@ -6,7 +6,7 @@ UltimateDailyWallpaper is a simple utility to use the daily picture of a provide
 #### Features of the application: <br />
  * Allows download the daily picture of Wikimedia Commons (POTD)
  * Allows download "pictures of the day" from past days of Wikimedia Commons
- * Allows integration and use of plugins to download a daily picture of any provider
+ * Allows a simple integration and use of plugins to download a daily picture of any provider
  * Supports the most of X11 desktop environments to provide automatically changing wallpaper
 
 #### Requierment: <br />
