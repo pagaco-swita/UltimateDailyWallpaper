@@ -504,8 +504,8 @@ void MainWindow::create_Menu()
         provider->addAction(action);
     }
 
+    basemenu->addAction(settings);
     basemenu->addAction(aboutapp);
-
     basemenu->addSeparator();
     basemenu->addAction(quitapp);
 }
