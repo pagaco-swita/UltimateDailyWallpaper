@@ -20,26 +20,42 @@
 
 #include <QDesktopServices>
 #include <QCloseEvent>
+#include <QDate>
+#include <QWidget>
 
 About::About(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::About)
 {
     ui->setupUi(this);
-    ui->label_2->setText("Application name: "+QApplication::applicationName());
+
+    ui->tabWidget->setCurrentIndex(0);
+
+    ui->label_2->setText(QApplication::applicationName());
+    ui->label_2->setStyleSheet("font: 18pt");
 
     QString _version=APP_VERSION;
     ui->label_3->clear();
     ui->label_3->setText("Version: "+_version);
+    ui->label_3->setStyleSheet("font: 11pt");
+
+    QDate current_year;
+    current_year=QDate::currentDate();
 
     QString _author="Patrice Coni";
+
     ui->label_5->clear();
-    ui->label_5->setText("Author: "+_author);
+    ui->label_5->setText("Copyright 2022 - "+current_year.toString("yyyy")+" "+_author);
 }
 
 About::~About()
 {
     delete ui;
+}
+
+void About::set_plugin_text(QString plugininfo)
+{
+    ui->label_7->setText(plugininfo);
 }
 
 void About::closeEvent(QCloseEvent * event)

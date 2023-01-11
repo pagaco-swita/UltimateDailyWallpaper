@@ -1,4 +1,10 @@
-ultimatedailywallpaper (1.1.1-1) UNRELEASED; urgency=medium
+ultimatedailywallpaper (1.2.0-1) UNRELEASED; urgency=medium
+
+  * About window user interface updated.
+
+ -- Patrice Coni <patrice.coni-dev@yandex.com>  Wed, 11 Jan 2023 19:09:57 +0100
+
+ultimatedailywallpaper (1.1.1-1) unstable; urgency=medium
 
   * renamed: Submenu "Application" to "This application".
 

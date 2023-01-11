@@ -168,7 +168,6 @@ private:
     // basemenu
     QMenu *basemenu;
     QMenu *provider;
-    QMenu *aboutmenu;
 
     QAction *getnewpicture;
     QAction *moreinformation;

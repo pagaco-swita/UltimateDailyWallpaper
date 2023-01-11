@@ -32,6 +32,7 @@ public:
     explicit About(QWidget *parent = 0);
     ~About();
     QString version;
+    void set_plugin_text(QString plugininfo);
 
 private slots:
     void on_pushButton_clicked();

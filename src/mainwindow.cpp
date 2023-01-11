@@ -429,10 +429,10 @@ void MainWindow::create_Menu()
 {
     basemenu  = new QMenu(this);
     provider  = new QMenu(this);
-    aboutmenu = new QMenu(this);
 
     _widgetaction = new QWidgetAction(basemenu);
     _widgetaction->setDefaultWidget(_descWidget);
+
     basemenu->addAction(_widgetaction);
     basemenu->addSeparator();
 
@@ -504,10 +504,7 @@ void MainWindow::create_Menu()
         provider->addAction(action);
     }
 
-    basemenu->addAction(settings);
-    aboutmenu = basemenu->addMenu("&About");
-    aboutmenu->addAction(aboutapp);
-    aboutmenu->addAction(aboutplugin);
+    basemenu->addAction(aboutapp);
 
     basemenu->addSeparator();
     basemenu->addAction(quitapp);
@@ -543,24 +540,8 @@ void MainWindow::create_Actions()
     settings = new QAction(tr("&Settings"), this);
     connect(settings, &QAction::triggered, this, &MainWindow::basemnu_settings);
 
-    aboutapp = new QAction(tr("&This application"), this);
+    aboutapp = new QAction(tr("&About"), this);
     connect(aboutapp, &QAction::triggered, this, &MainWindow::basemnu_aboutapp);
-
-    aboutplugin = new QAction(tr("&Currently used plugin"), this);
-    connect(aboutplugin, &QAction::triggered, [this]()
-    {
-        QMessageBox MsgInfo;
-        MsgInfo.setIcon(QMessageBox::Information);
-        MsgInfo.setWindowTitle("Currently used plugin");
-        MsgInfo.setText(basicinterface->plugininfo());
-        MsgInfo.setStandardButtons(QMessageBox::Ok);
-        connect(MsgInfo.button(QMessageBox::Ok), &QPushButton::clicked, [this]
-        {
-            this->hide();
-        });
-
-        MsgInfo.exec();
-    });
 
     quitapp = new QAction(tr("&Quit"), this);
     connect(quitapp, SIGNAL(triggered()), qApp, SLOT(quit()));
@@ -619,6 +600,7 @@ void MainWindow::basemnu_aboutapp()
     About _about_win;
     _about_win.adjustSize();
     _about_win.move(QApplication::desktop()->screen()->rect().center() - _about_win.rect().center());
+    _about_win.set_plugin_text(basicinterface->plugininfo());
     _about_win.setFixedSize(_about_win.size());
     _about_win.setModal(true);
     _about_win.exec();
