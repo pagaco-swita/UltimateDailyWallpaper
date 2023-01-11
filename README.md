@@ -1,7 +1,7 @@
 ![Icon](https://github.com/pagaco-swita/ultimatedailywallpaper/blob/main/src/icons/ultimatedesktopwallpaper_icon.png)
 
 # UltimateDailyWallpaper
-UltimateDailyWallpaper is a simple utility to use the daily picture of a provider as wallpaper on linux based operating systems. It saves images in a high quality. Further information about each picture can be obtained from the internet with a single click. It integrates with most X11 desktop environments to provide automatically changing wallpaper. It allows a simple integration of plugins, which allows downloading a daily wallpaper from any one provider.
+UltimateDailyWallpaper is a simple utility to use the daily picture of a provider as wallpaper on Linux operating systems. It saves images in a high quality. Further information about each picture can be obtained from the internet with a single click. It integrates with most X11 desktop environments to provide automatically changing wallpaper. It allows a simple integration of plugins, which allows downloading a daily wallpaper from any one provider.
 <br>
 #### Features of the application: <br />
  * Allows download the daily picture of Wikimedia Commons (POTD)
