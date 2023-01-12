@@ -315,6 +315,11 @@ void PhotoBrowser::_get_values()
         {
             _pb_copyright_description_photo = udw_query.value(0).toString();
         }
+        udw_query.prepare("SELECT copyright FROM udw_history WHERE thumb_filename = \x27"+_thumb_filename+"\x27");
+        if(udw_query.exec() && udw_query.next())
+        {
+            _pb_copyright = udw_query.value(0).toString();
+        }
         udw_query.prepare("SELECT title FROM udw_history WHERE thumb_filename = \x27"+_thumb_filename+"\x27");
         if(udw_query.exec() && udw_query.next())
         {

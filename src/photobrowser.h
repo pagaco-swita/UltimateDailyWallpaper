@@ -49,6 +49,7 @@ public:
     QString _pb_copyright_description_photo;
     QString _pb_headline;
     QString _pb_copyright_link;
+    QString _pb_copyright;
     QString _thumb_filename;
     QString _pluginfile;
 

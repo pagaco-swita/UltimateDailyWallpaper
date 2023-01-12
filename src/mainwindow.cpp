@@ -951,7 +951,7 @@ void MainWindow::show_photobrowser(int mode)
        _db_rec_title=_photobrowser._pb_headline;
        _db_rec_thumb_filename=_photobrowser._thumb_filename;
        _db_rec_url=_photobrowser._pb_copyright_link;
-
+       _copyright=_photobrowser._pb_copyright;
 
        update_menu();
     }
