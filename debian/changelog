@@ -1,8 +1,15 @@
-ultimatedailywallpaper (1.2.0-1) UNRELEASED; urgency=medium
+ultimatedailywallpaper (1.2.1-1) unstable; urgency=medium
+
+  * About window without fixed size.
+  * Addition in file UltimateDailyWallpaper.1
+
+ -- Patrice Coni <patrice.coni-dev@yandex.com>  Thu, 12 Jan 2023 18:15:59 +0100
+
+ultimatedailywallpaper (1.2.0-2) unstable; urgency=medium
 
   * About window user interface updated.
 
- -- Patrice Coni <patrice.coni-dev@yandex.com>  Wed, 11 Jan 2023 19:09:57 +0100
+ -- Patrice Coni <patrice.coni-dev@yandex.com>  Thu, 12 Jan 2023 18:15:34 +0100
 
 ultimatedailywallpaper (1.1.1-1) unstable; urgency=medium
 
