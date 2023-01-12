@@ -45,7 +45,7 @@ About::About(QWidget *parent) :
     QString _author="Patrice Coni";
 
     ui->label_5->clear();
-    ui->label_5->setText("Copyright 2022 - "+current_year.toString("yyyy")+" "+_author);
+    ui->label_5->setText("Copyright © 2022 - "+current_year.toString("yyyy")+" "+_author);
 }
 
 About::~About()

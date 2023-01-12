@@ -599,9 +599,9 @@ void MainWindow::basemnu_aboutapp()
 {
     About _about_win;
     _about_win.adjustSize();
+    _about_win.setMinimumSize(535,500);
     _about_win.move(QApplication::desktop()->screen()->rect().center() - _about_win.rect().center());
     _about_win.set_plugin_text(basicinterface->plugininfo());
-    _about_win.setFixedSize(_about_win.size());
     _about_win.setModal(true);
     _about_win.exec();
 }
